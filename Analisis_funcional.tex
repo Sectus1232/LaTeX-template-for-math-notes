@@ -1,0 +1,1914 @@
+\documentclass[titlepage,11pt,a4paper]{book}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=15pt]{geometry}
+\usepackage{hyphenat}
+
+% ======================================================================= %
+%                      1. PAQUETES BÁSICOS E IDIOMA                       %
+% ======================================================================= %
+\usepackage[spanish, es-tabla, es-noquoting, es-noindentfirst]{babel}
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+\addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}
+
+\usepackage{csquotes}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext}
+\usepackage{newpxmath}        
+\usepackage{microtype}      
+\linespread{1.05}           
+\usepackage{textcomp}     
+
+% --- Nomenclatura (Índice de Símbolos) ---
+\usepackage[intoc, spanish]{nomencl}
+\makenomenclature
+\usepackage{etoolbox}
+\renewcommand\nomname{Glosario de Notación}
+\renewcommand{\nomlabel}[1]{\textbf{#1}\dotfill}
+
+% --- Índice alfabñetico ---
+\usepackage{imakeidx}
+\makeindex[intoc, title=Índice Alfabético]
+
+% ======================================================================= %
+%                      2. MATEMÁTICAS Y SÍMBOLOS                          %
+% ======================================================================= %
+\let\Bbbk\relax
+\let\openbox\relax 
+\usepackage{amsmath,amsfonts,amssymb,amsthm} 
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{commath}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{bussproofs} 
+
+
+% ======================================================================= %
+%                  3. ELEMENTOS DE ESCRITURA Y REFERENCIA                 %
+% ======================================================================= %
+\renewcommand{\contentsname}{Índice General}
+\usepackage{chngcntr}
+% --- Control de Viudas y Huérfanas ---
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+% ======================================================================= %
+%                 CONFIGURACIÓN DE ENCABEZADOS Y PIE DE PÁGINA            %
+% ======================================================================= %
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhf{} 
+\fancyhfoffset[LE,RO]{0pt}
+
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\let\oldheadrule\headrule
+\let\oldfootrule\footrule
+\renewcommand{\headrule}{{\color{colorAsignatura!60}\oldheadrule}}
+\renewcommand{\footrule}{{\color{colorAsignatura!60}\oldfootrule}}
+
+\fancyhead[L]{\textcolor{colorAsignatura}{\small\bfseries\leftmark}}
+\fancyhead[R]{\textcolor{colorAsignatura}{\small\scshape\materia}}
+
+\fancyfoot[LE,RO]{%
+    \begin{tikzpicture}[baseline=0pt]
+        \fill[colorAsignatura] (0,0) rectangle (1, 0.7);
+        \node[white, font=\bfseries] at (0.5, 0.35) {\thepage};
+    \end{tikzpicture}%
+}
+
+\fancypagestyle{plain}{
+    \fancyhf{} 
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{1pt} 
+    \fancyfoot[LE,RO]{%
+        \begin{tikzpicture}[baseline=0pt]
+            \fill[colorAsignatura] (0,0) rectangle (1, 0.7);
+            \node[white, font=\bfseries] at (0.5, 0.35) {\thepage};
+        \end{tikzpicture}%
+    }
+}
+\usepackage[normalem]{ulem} 
+\usepackage{emptypage} 
+
+% ======================================================================= %
+%                      5. TABLAS, FIGURAS Y AÑADIDOS                      %
+% ======================================================================= %
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{
+    labelfont={color=colorAsignatura, bf},
+    textfont={small, it},
+    margin=10pt
+}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{nicematrix}
+\usepackage{siunitx}
+\sisetup{output-decimal-marker = {,}}
+\usepackage{rotating}
+\setlength{\floatsep}{15pt} 
+\setlength{\textfloatsep}{20pt} 
+
+% --- Espaciado y sangría de párrafos ---
+\setlength{\parskip}{0.8em plus 0.2em minus 0.2em} % El salto vertical entre párrafos
+\setlength{\parindent}{0pt} % 0pt quita la sangría inicial. Pon 1.5em si prefieres mantenerla.
+
+% ==========================================
+% CONFIGURACIÓN DE LISTAS (enumitem)
+% ==========================================
+\usepackage{enumitem}
+
+% Ajuste global de todas las listas (itemize y enumerate)
+\setlist{
+  topsep=0.6em,      % Espacio antes de empezar la lista
+  itemsep=0.5em,     % Espacio entre un ítem y el siguiente
+  parsep=0.2em,      % Espacio entre párrafos dentro de un mismo ítem
+  partopsep=0.2em    % Espacio extra si la lista viene precedida de una línea en blanco
+}
+
+\setlist[enumerate,1]{label=\textit{\roman*.}} % Mantiene tu estilo de números romanos
+
+
+%EPÍGRAFES - %
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.6\textwidth}
+\setlength{\epigraphrule}{0pt}
+\renewcommand{\textflush}{flushright}
+% ======================================================================= %
+%                      6. ELEMENTOS DE PORTADA                            %
+% ======================================================================= %
+\newcommand{\titulo}{Recolección de apuntes de} 
+\newcommand{\facultad}{Ciencias}
+\newcommand{\autor}{Iván Jesús Navarro Ugidos}
+\newcommand{\materia}{Análisis Funcional} 
+\newcommand{\ciudad}{Oviedo}
+\newcommand{\fecha}{\today}
+
+% ======================================================================= %
+%                      7. ELEMENTOS DE DIBUJADO (TIKZ)                    %
+% ======================================================================= %
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\usetikzlibrary{babel}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning, arrows.meta}
+\usetikzlibrary{shapes, decorations, calc, arrows}
+\usetikzlibrary{3d,fit,backgrounds, decorations.text}
+\usetikzlibrary{positioning, shapes.symbols}
+\usetikzlibrary{decorations.pathreplacing, calligraphy}
+
+% 1. Para poder insertar tu portada compilada previamente
+\usepackage{pdfpages} 
+
+% 2. Para activar la externalización de gráficos
+\usetikzlibrary{external}
+\tikzexternalize[prefix=figuras-tikz-func/]
+\tikzset{external/only named=true}
+
+% Añade esta línea para proteger a las cajas de tcolorbox
+
+
+\tikzset{%
+    myarrow/.style = {-Stealth, shorten >=5pt}
+} 
+\newcommand{\mypoint}[2]{\tikz[remember picture]{\node[inner sep=0, anchor=base](#1){$#2$};}}
+
+\tikzset{>=latex}
+\usepackage{adjustbox}
+
+%=========ESTILO PARA MUNDOS POSIBLES==========%
+\tikzset{
+    % Estilo para mundos posibles (nodos)
+    mundo/.style={
+        circle, 
+        draw=colorAsignatura, 
+        fill=colorAsignatura!10, 
+        line width=1.5pt, 
+        minimum size=1cm, 
+        font=\bfseries\color{colorAsignatura}
+    },
+    %=========ESTILO PARA RELACIONES DE ACCESIBILIDAD==========%
+    acc/.style={
+        -{Stealth[length=3mm, width=2mm]}, 
+        colorAsignatura, 
+        line width=1.2pt
+    }
+}
+% ======================================================================= %
+%                      8. ATAJOS Y COMANDOS PERSONALIZADOS            
+% ======================================================================= %
+\newcommand{\NN}{\ensuremath{\textcolor{OliveGreen}{\mathbb{N}}}}
+\newcommand{\ZZ}{\ensuremath{\textcolor{violet}{\mathbb{Z}}}}
+\newcommand{\QQ}{\ensuremath{\textcolor{BurntOrange}{\mathbb{Q}}}}
+\newcommand{\II}{\ensuremath{\textcolor{Aquamarine}{\mathbb{I}}}}
+\newcommand{\RR}{\ensuremath{\textcolor{blue}{\mathbb{R}}}}
+\newcommand{\CC}{\ensuremath{\textcolor{Red}{\mathbb{C}}}}
+\newcommand{\filt}{\ensuremath{\textcolor{Orange}{\mathcal{F}}}}
+\newcommand{\gilt}{\ensuremath{\textcolor{Magenta}{\mathcal{G}}}}
+\newcommand{\ultf}{\ensuremath{\textcolor{Plum}{\mathfrak{U}}}}
+\newcommand{\ii}{\ensuremath{\textcolor{TealBlue}{i}}}
+\newcommand{\jj}{\ensuremath{\textcolor{OliveGreen}{j}}}
+\newcommand{\nn}{\ensuremath{\textcolor{Plum}{n}}}
+\newcommand{\mm}{\ensuremath{\textcolor{Magenta}{m}}}
+\newcommand{\KK}{\ensuremath{\mathbb{K}}}
+\newcommand{\VV}{\ensuremath{\mathcal{V}}}
+\newcommand{\alpa}{\textcolor{orange}{\alpha}}
+\newcommand{\berta}{\textcolor{blue}{\beta}}
+\newcommand{\eps}{\textcolor{ForestGreen}{\epsilon}}
+\newcommand{\mum}{\textcolor{Plum}{\mu}}
+\newcommand{\delt}{\textcolor{blue}{\delta}}
+\newcommand{\Delt}{\textcolor{ForestGreen}{\Delta}}
+\newcommand{\etat}{\textcolor{Rhodamine}{\eta}}
+\newcommand{\gam}{\textcolor{ForestGreen}{\gamma}}
+\newcommand{\lamb}{\textcolor{TealBlue}{\lambda}}
+\newcommand{\taut}{\textcolor{Fuchsia}{\tau}}
+\newcommand{\kk}{\textcolor{orange}{k}}
+\newcommand{\lal}{\textcolor{Purple}{l}}
+\newcommand{\tet}{\textcolor{BurntOrange}{t}}
+\newcommand*{\temp}{\multicolumn{1}{c|}{0}}
+
+
+\newcommand{\Chapter}[1]{\chapter{#1}
+\begin{mdframed}{\Large\bfseries Índice}
+\minitoc
+\vspace{-8mm}
+\end{mdframed}
+}
+
+
+\definecolor{colorAsignatura}{RGB}{77, 138, 84} 
+
+\usepackage{titlesec}
+
+
+
+
+% --- MACROS AUXILIARES RECUPERADAS ---
+
+\newcommand{\centrarTextoSeccion}[1]{%
+    \raisebox{0.05cm}{%
+        \parbox[c][2.1cm][c]{\dimexpr\textwidth-1.5cm\relax}{\centering\color{colorAsignatura}#1}%
+    }%
+}
+
+\newcommand{\centrarTextoCapitulo}[1]{%
+    \raisebox{-1cm}{%
+        \parbox[c][4cm][c]{\dimexpr\textwidth-1.5cm\relax}{\centering\color{colorAsignatura}#1}%
+    }%
+}
+
+% ==========================================
+% CONFIGURACIÓN DE SECCIONES
+% ==========================================
+
+\DeclareRobustCommand{\dibujarSeccion}[1]{%
+    \begin{tikzpicture}[remember picture, external/export = false]
+        % 1. El texto se alinea exactamente con el margen izquierdo normal (x=0). 
+        %    Ocupa todo el ancho hasta el margen derecho (\textwidth).
+        \node[text width=\textwidth, align=left, inner ysep=12pt, inner xsep=0pt] 
+            (sectext) at (0, 0) [anchor=west] {#1};
+            
+        \begin{scope}[overlay]
+            % 2. La caja azul nace en el extremo físico izquierdo del papel y se CORTA 
+            %    exactamente 0.4 cm antes de chocar con el texto.
+            \fill[colorAsignatura] 
+                (current page.west |- sectext.south) rectangle ([xshift=-0.4cm]sectext.north west);
+            
+            % 3. El número se desplaza a la izquierda, anclado dentro de la franja azul,
+            %    dejando un pequeño respiro respecto al corte.
+            \node[white, anchor=east] at ([xshift=-0.5cm]sectext.west) 
+                {\fontsize{34}{34}\selectfont\thesection};
+            
+            % 4. Las líneas horizontales nacen en el corte de la franja azul y mueren
+            %    exactamente en el margen derecho del texto.
+            \draw[colorAsignatura, line width=2pt] 
+                ([xshift=-0.4cm, yshift=-1pt]sectext.north west) -- (sectext.north east);
+            \draw[colorAsignatura, line width=2pt] 
+                ([xshift=-0.4cm, yshift=1pt]sectext.south west) -- (sectext.south east);
+        \end{scope}
+    \end{tikzpicture}%
+}
+
+
+
+\titleformat{\section}[block]
+{\normalfont\huge\bfseries\color{colorAsignatura}} 
+{}
+{0pt}
+{\thispagestyle{plain}\dibujarSeccion}
+
+% Compensamos el espacio vertical directamente aquí. 
+% \titlespacing*{comando}{izq}{espacio ANTES}{espacio DESPUÉS}
+\titlespacing*{\section}{0pt}{6ex}{4ex}
+
+
+\DeclareRobustCommand{\dibujarSeccionEstrella}[1]{%
+    \begin{tikzpicture}[remember picture, external/export = false]
+        \node[text width=\textwidth, align=left, inner ysep=12pt, inner xsep=0pt] 
+            (sectext) at (0, 0) [anchor=west] {#1};
+            
+        \begin{scope}[overlay]
+            \fill[colorAsignatura] 
+                (current page.west |- sectext.south) rectangle ([xshift=-0.4cm]sectext.north west);
+            
+            % HEMOS ELIMINADO EL NODO DE \thesection AQUÍ
+            
+            \draw[colorAsignatura, line width=2pt] 
+                ([xshift=-0.4cm, yshift=-1pt]sectext.north west) -- (sectext.north east);
+            \draw[colorAsignatura, line width=2pt] 
+                ([xshift=-0.4cm, yshift=1pt]sectext.south west) -- (sectext.south east);
+        \end{scope}
+    \end{tikzpicture}%
+}
+
+\titleformat{name=\section,numberless}[block]
+{\normalfont\huge\bfseries\color{colorAsignatura}} 
+{}
+{0pt}
+{\thispagestyle{plain}\dibujarSeccionEstrella}
+
+\titlespacing*{\section}{0pt}{6ex}{4ex}
+% ==========================================
+% CONFIGURACIÓN DE SUBSECCIONES (Limpieza editorial)
+% ==========================================
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries\color{colorAsignatura!85!black}} % Ligeramente más oscuro que la sección para jerarquía
+  {\thesubsection} % El número
+  {1em} % Espacio entre número y texto
+  {}
+
+% Control de espaciados: \titlespacing*{comando}{izq}{arriba}{abajo}
+\titlespacing*{\subsection}{0pt}{4.5ex plus 1ex minus .2ex}{2ex plus .2ex}
+
+% ==========================================
+% CONFIGURACIÓN DE CAPÍTULOS
+% ==========================================
+
+% --- Capítulos Numerados ---
+\titleformat{\chapter}[hang]
+{\normalfont\huge\bfseries} 
+{%
+    \hbox to 1.5cm{%
+        \begin{tikzpicture}[remember picture, overlay,  external/export = false]
+            \fill[colorAsignatura] (current page.north west) rectangle ++(3.5cm,-6cm);
+            \node[white] at ([xshift=1.75cm, yshift=-2.2cm]current page.north west) {\Large\scshape Capítulo};
+            \node[white] at ([xshift=1.75cm, yshift=-4.2cm]current page.north west) {\fontsize{75}{75}\selectfont\thechapter};
+            \draw[colorAsignatura, line width=3pt, yshift=1-5pt] ([xshift=3.5cm, yshift=-6cm+1.5pt]current page.north west) -- ([yshift=-6cm]current page.north east);
+        \end{tikzpicture}\hss
+    }%
+}
+{0pt}
+{\fontsize{40}{40}\selectfont\centrarTextoCapitulo}
+
+% --- NUEVA Macro para Capítulos NO Numerados ---
+\DeclareRobustCommand{\dibujarTituloCapituloEstrella}[1]{%
+    \begin{tikzpicture}[remember picture, overlay,  external/export = false]
+        \fill[colorAsignatura] (current page.north west) rectangle ([yshift=-3.5cm]current page.north east);
+        \node[white, align=center, text width=\paperwidth] 
+            at ([yshift=-1.75cm]current page.north) {
+                \fontsize{40}{45}\selectfont\bfseries #1
+            };
+    \end{tikzpicture}%
+}
+
+
+% --- Capítulos NO Numerados (Índice, Bibliografía...) ---
+\titleformat{name=\chapter,numberless}[display]
+{\normalfont\huge\bfseries} 
+{}
+{0pt}
+{\dibujarTituloCapituloEstrella}
+
+% --- Espaciado General ---
+\titlespacing*{\chapter}{0pt}{-1.5cm}{3.2cm}
+
+
+% ==========================================
+% CONFIGURACIÓN DE PARTES (Interlineado y sin guiones)
+% ==========================================
+\newcommand{\dibujarTituloParte}[1]{%
+    \begin{tikzpicture}[remember picture, overlay,  external/export = false]
+        % Fondo lateral
+        \fill[colorAsignatura] (current page.north west) rectangle ([xshift=4cm]current page.south west);
+        \node[white, rotate=90, anchor=center] at ([xshift=2cm]current page.west) {
+            \fontsize{60}{60}\selectfont\bfseries PARTE \Roman{part}
+        };
+        
+        % NODO CENTRAL: 
+        % Al poner \fontsize en las opciones del nodo (font=...), TikZ asume 
+        % el control total y aplica los 60pt de separación entre las líneas sin fallar.
+        \node[text width=\dimexpr\paperwidth-6cm\relax, 
+              align=center, 
+              inner ysep=1.5cm,
+              font=\fontsize{40}{60}\selectfont\bfseries\color{colorAsignatura},
+              execute at begin node=\setlength{\baselineskip}{60pt}] 
+            (textoparte) at ([xshift=2cm]current page.center) {
+                % Usamos tu paquete 'hyphenat' para blindar el texto contra los guiones
+                \nohyphens{\MakeUppercase{#1}}
+            };
+            
+        % Líneas adaptativas superior e inferior
+        \draw[colorAsignatura, line width=3pt] 
+            ([xshift=4cm]textoparte.north west -| current page.west) -- ([xshift=-1cm]textoparte.north east -| current page.east);
+        \draw[colorAsignatura, line width=3pt] 
+            ([xshift=4cm]textoparte.south west -| current page.west) -- ([xshift=-1cm]textoparte.south east -| current page.east);
+    \end{tikzpicture}%
+}
+
+\titleformat{\part}[display]
+{\thispagestyle{empty}} 
+{} 
+{0pt}
+{\dibujarTituloParte} 
+
+\titlespacing*{\part}{0pt}{0pt}{0pt}
+
+% ======================================================================= %
+%                      9. REFERENCIAS INTERNAS Y EXTERNAS         
+% ======================================================================= %
+\usepackage{varioref}
+\usepackage[colorlinks=true, 
+            linkcolor=colorAsignatura!80!black, 
+            urlcolor=colorAsignatura!80!black, 
+            citecolor=colorAsignatura!80!black]{hyperref}
+\usepackage[nameinlink, spanish]{cleveref}
+\crefname{thm}{Teorema}{Teoremas}
+\crefname{defn}{Definición}{Definiciones}
+\crefname{lem}{Lema}{Lemas}
+\crefname{cor}{Corolario}{Corolarios}
+\crefname{prop}{Proposición}{Proposiciones}
+\crefname{axm}{Axioma}{Axiomas}
+\crefname{rem}{Nota}{Notas}
+
+\usepackage{minitoc}
+\mtcsetdepth{minitoc}{1}
+\mtcsettitle{minitoc}{Índice del Capítulo}
+\mtcsetrules{minitoc}{on}
+\nomtcpagenumbers
+
+% --- Configuración Minitoc ---
+\setcounter{minitocdepth}{1} 
+\mtcsetrules{minitoc}{off} 
+\mtcsettitle{minitoc}{Índice del Capítulo}
+\mtcsetfont{minitoc}{*}{\large\scshape\color{colorAsignatura}} 
+\mtcsetfont{minitoc}{section}{\normalfont\small\color{colorAsignatura!80!black}}
+\usepackage{mdframed}
+\renewcommand{\mtctitle}{Índice}
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+
+% Cambiamos el título por defecto a español
+\DefineBibliographyStrings{spanish}{
+  bibliography = {Bibliografía},
+}
+
+% Enlazamos el archivo externo donde guardaremos los libros
+\addbibresource{bibliografia.bib}
+
+\usepackage{bookmark}
+\bookmarksetup{
+  numbered,
+  open=true,
+  openlevel=1
+}
+
+% ======================================================================= %
+%                           10. TEOREMAS Y CAJAS                           %
+% ======================================================================= %
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{theorems}
+\tcbuselibrary{listings}
+\tcbset{shield externalize}
+\swapnumbers
+
+% Comando para rodear un símbolo con borde negro grueso y espacio a la derecha
+\newcommand{\borde}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{2.5pt}% Separación interna entre el símbolo y el borde
+  \setlength{\fboxrule}{1pt}% Grosor del borde negro
+  \textcolor{black}{\fbox{\normalcolor\ensuremath{#1}}}% Dibuja la caja
+  \hspace{4pt}% <--- LIGERO ESPACIO HORIZONTAL A LA DERECHA (puedes variar los pt)
+  \vspace{0.5 pt}
+  \endgroup
+}
+
+
+\newtcbtheorem[number within=chapter]{defn}{Definición}%
+{label type=defn,colback=colorAsignatura!10,title=Definition,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,rounded corners,colframe=colorAsignatura,colbacktitle=colorAsignatura!80,boxed title style={
+		frame code={ 
+			\fill[colorAsignatura!80] (frame.south west)-- (frame.north west)--(frame.north east)to [in=-1,out=1,looseness=2] (frame.south east)--cycle;
+            \draw[line width=0.8mm,colorAsignatura!80]([xshift=3mm]frame.north east)to [in=-1,out=1,looseness=2]([xshift=3mm]frame.south east);
+			\draw[line width=0.8mm,colorAsignatura!80]([xshift=7mm]frame.north east)to [in=-1,out=1,looseness=2]([xshift=7mm]frame.south east);
+            \draw[line width=0.8mm,colorAsignatura!80]([xshift=11mm]frame.north east)to [in=-1,out=1,looseness=2]([xshift=11mm]frame.south east);
+			\fill[colorAsignatura!40!black](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{defn}
+\NewTcbTheorem[number within=chapter]{thm}{Teorema}
+{label type=thm,
+    colback=colorAsignatura!10, enhanced, title=Teorema,attach boxed title to top left={xshift=-4mm}, boxrule=0pt,
+    after skip=1cm, before skip=1cm, right skip=0cm, breakable, fonttitle=\bfseries, toprule=0pt, bottomrule=0pt, rightrule=0pt, leftrule=4pt, arc=0mm, skin=enhancedlast jigsaw, sharp corners, colframe=colorAsignatura, colbacktitle=colorAsignatura,
+    boxed title style={
+        frame code={ 
+            \fill[colorAsignatura]
+                (frame.south west)--(frame.north west)--(frame.north east)--
+                ([xshift=3mm]frame.east)--(frame.south east)--cycle;
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=5mm]frame.north east)--([xshift=8mm]frame.east)--([xshift=5mm]frame.south east);
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=8mm]frame.north east)--([xshift=11mm]frame.east)--([xshift=8mm]frame.south east);
+            \fill[colorAsignatura!40!black]
+                (frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+        }
+    }
+}{thm}
+
+\NewTcbTheorem[number within=chapter]{thmroj}{Teorema}
+{label type=thm,colback=red!20!white,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=red!60!black,colbacktitle=red!80!black,boxed title style={
+		frame code={ 
+			\fill[red!80!black](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,red!80!black]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\draw[line width=1mm,red!80!black]([xshift=5mm]frame.north east)--([xshift=8mm]frame.east)--([xshift=5mm]frame.south east);
+            \draw[line width=1mm,red!80!black]([xshift=8mm]frame.north east)--([xshift=11mm]frame.east)--([xshift=8mm]frame.south east);
+			\fill[red!60!white](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{teoroj}
+
+\NewTcbTheorem[number within=chapter]{prop}{Proposición}
+{label type=prop,colback=colorAsignatura!10, enhanced, title=Teorema,attach boxed title to top left={xshift=-4mm}, boxrule=0pt,
+    after skip=1cm, before skip=1cm, right skip=0cm, breakable, fonttitle=\bfseries, toprule=0pt, bottomrule=0pt, rightrule=0pt, leftrule=4pt, arc=0mm, skin=enhancedlast jigsaw, sharp corners, colframe=colorAsignatura, colbacktitle=colorAsignatura,
+    boxed title style={
+        frame code={ 
+            \fill[colorAsignatura]
+                (frame.south west)--(frame.north west)--(frame.north east)--
+                ([xshift=3mm]frame.east)--(frame.south east)--cycle;
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=5mm]frame.north east)--([xshift=8mm]frame.east)--([xshift=5mm]frame.south east);
+            \draw[line width=1mm, colorAsignatura]
+                ([xshift=8mm]frame.north east)--([xshift=11mm]frame.east)--([xshift=8mm]frame.south east);
+            \fill[colorAsignatura!40!black]
+                (frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+        }
+    }
+}{prop}
+
+\NewTcbTheorem[number within=chapter]{proproj}{Proposición}
+{label type=prop,colback=orange!20!white,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=orange!85!black,colbacktitle=orange!95!black,boxed title style={
+		frame code={ 
+			\fill[orange!95!black](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,orange!95!black]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\draw[line width=1mm,orange!95!black]([xshift=5mm]frame.north east)--([xshift=8mm]frame.east)--([xshift=5mm]frame.south east);
+			\fill[orange!60!white](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{proproj}
+
+\NewTcbTheorem[number within=chapter]{prop+}{Propiedades}
+{label type=prop,colback=colorAsignatura!10,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=colorAsignatura,colbacktitle=colorAsignatura,boxed title style={
+		frame code={ 
+			\fill[colorAsignatura](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,colorAsignatura]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\fill[colorAsignatura!40!black](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{prop+}
+
+\NewTcbTheorem[number within=chapter]{proproj+}{Propiedades}
+{label type=prop,colback=Dandelion!20!white,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=Dandelion!85!black,colbacktitle=Dandelion!95!black,boxed title style={
+		frame code={ 
+			\fill[Dandelion!95!black](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,Dandelion!95!black]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\fill[Dandelion!60!white](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{proproj+}
+
+\NewTcbTheorem[number within=chapter]{cor}{Corolario}
+{label type=cor,colback=colorAsignatura!10,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=colorAsignatura,colbacktitle=colorAsignatura,boxed title style={
+		frame code={ 
+			\fill[colorAsignatura](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,colorAsignatura]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\fill[colorAsignatura!40!black](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{cor}
+
+\NewTcbTheorem[number within=chapter]{lem}{Lema}
+{label type=lem,colback=colorAsignatura!10,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=colorAsignatura,colbacktitle=colorAsignatura,boxed title style={
+		frame code={ 
+			\fill[colorAsignatura](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,colorAsignatura]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\fill[colorAsignatura!40!black](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{lem}
+
+\NewTcbTheorem[number within=chapter]{axm}{Axioma}
+{label type=axm,
+    colback=red!20!white, 
+    enhanced, 
+    title=Axioma,
+    attach boxed title to top left={xshift=-4mm}, 
+    boxrule=0pt,
+    after skip=1cm, 
+    before skip=1cm, 
+    right skip=0cm, 
+    breakable, 
+    fonttitle=\bfseries, 
+    toprule=0pt, 
+    bottomrule=0pt, 
+    rightrule=0pt, 
+    leftrule=4pt, 
+    arc=0mm, 
+    skin=enhancedlast jigsaw, 
+    sharp corners, 
+    colframe=red!60!black, 
+    colbacktitle=red!80!black,
+    boxed title style={
+        frame code={ 
+            % Cuerpo del título en bloque recto
+            \fill[red!80!black]
+                (frame.south west)--(frame.north west)--(frame.north east)--(frame.south east)--cycle;
+            
+            % Doble pilar vertical a la derecha (diseño de axioma)
+            \draw[line width=1.2mm, red!80!black]
+                ([xshift=2mm]frame.north east)--([xshift=2mm]frame.south east);
+            \draw[line width=1.2mm, red!80!black]
+                ([xshift=5mm]frame.north east)--([xshift=5mm]frame.south east);
+            
+            % Triángulo de relieve en paralelo (idéntico en dimensiones y tono al teorema rojo)
+            \fill[red!40!black]
+                (frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+        }
+    }
+}{ax}
+
+\NewTcbTheorem[number within=chapter]{aux}{Resultado Auxiliar}
+{colback=Blue!20!white,enhanced,title=Teorema,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,	toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,sharp corners,colframe=Blue!85!black,colbacktitle=Blue!95!black,boxed title style={
+		frame code={ 
+			\fill[Blue!95!black](frame.south west)--(frame.north west)--(frame.north east)--([xshift=3mm]frame.east)--(frame.south east)--cycle;
+			\draw[line width=1mm,Blue!95!black]([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+			\fill[Blue!60!white](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{aux}
+
+\newtcolorbox{auxi}{
+  colback=Blue!20!white,
+  enhanced,
+  boxrule=0pt,
+  after skip=1cm,
+  before skip=1cm,
+  right skip=0cm,
+  breakable,
+  fonttitle=\bfseries,
+  toprule=0pt,
+  bottomrule=0pt,
+  rightrule=0pt,
+  leftrule=4pt,
+  arc=0mm,
+  skin=enhancedlast jigsaw,
+  sharp corners,
+  colframe=Blue!85!black
+}
+
+
+\newtcbtheorem[number within=chapter]{rem}{Nota}%
+{label type=rem,colback=gray!20!white,title=Nota,
+	attach boxed title to top left={xshift=-4mm},boxrule=0pt,after skip=1cm,before skip=1cm,right skip=0cm,breakable,fonttitle=\bfseries,toprule=0pt,bottomrule=0pt,rightrule=0pt,leftrule=4pt,arc=0mm,skin=enhancedlast jigsaw,rounded corners,colframe=gray!80!white,colbacktitle=gray!70!white,boxed title style={
+		frame code={ 
+			\fill[gray!70!white] (frame.south west)-- (frame.north west)--(frame.north east)to [in=-1,out=1,looseness=2] (frame.south east)--cycle;
+            \draw[line width=0.8mm,gray!70!white]([xshift=3mm]frame.north east)to [in=-1,out=1,looseness=2]([xshift=3mm]frame.south east);
+			\fill[gray!30!white](frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+		}
+	}
+}{rem}
+
+% ==========================================
+% ENTORNO DE EJEMPLOS 
+% ==========================================
+\NewTcbTheorem[number within=chapter]{ejemplo}{Ejemplo}
+{label type=ejm,
+    colback=white, enhanced, title=Ejemplo,
+    attach boxed title to top left={xshift=-4mm}, boxrule=0pt,
+    after skip=1cm, before skip=1cm, right skip=0cm, breakable, 
+    fonttitle=\bfseries\sffamily, coltitle=black, % Título negro
+    toprule=0pt, bottomrule=0pt, rightrule=0pt, leftrule=2pt, arc=0mm, 
+    skin=enhancedlast jigsaw, sharp corners, 
+    colframe=black!40, colbacktitle=black!10, % Tonos grises
+    boxed title style={
+        frame code={ 
+            % Caja plana y gris, sin los adornos puntiagudos
+            \fill[black!10] (frame.south west)--(frame.north west)--(frame.north east)--(frame.south east)--cycle;
+            % Pliegue izquierdo inferior para mantener la filosofía global del documento
+            \fill[black!50] (frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+        }
+    }
+}{ejm}
+
+% ======================================================================= %
+%                              DEMOSTRACIONES                             %
+% ======================================================================= %
+\newtcolorbox{dem}[1][Demostración]{
+  enhanced,
+  breakable,
+  frame hidden, 
+  boxrule=0pt,
+  % Línea casi negra con un matiz del color de la asignatura
+  borderline west={3.5pt}{0pt}{colorAsignatura!25!black}, 
+  % Fondo muy claro, blanco manchado levemente con el color de la asignatura
+  colback=colorAsignatura!3!white, 
+  coltitle=colorAsignatura!25!black, 
+  % --- Cambio tipográfico: Serif clásica, negrita y versalitas ---
+  fonttitle=\rmfamily\bfseries\scshape\large, 
+  title={#1}, 
+  before skip=3mm, 
+  after skip=8mm,
+  sharp corners
+}
+\AtEndEnvironment{dem}{\null\hfill\textcolor{colorAsignatura!25!black}{$\blacksquare$}}
+
+%====AFIRMACIONES====%
+\newenvironment{claim}[1][Afirmación]{\par\noindent\textbf{#1: }\space\itshape}{\par}
+\newenvironment{claimproof}[1][Demostración de la afirmación]{\par\noindent\textit{#1.}\space}{\hfill $\triangle$\par\medskip}
+
+% ==========================================
+% ENTORNO DE EJERCICIOS
+% ==========================================
+\NewTcbTheorem[number within=chapter]{ejer}{Ejercicio}
+{label type=ejer,
+    colback=colorAsignatura!3!white, enhanced, title=Ejercicio,
+    attach boxed title to top left={xshift=-4mm}, boxrule=0pt,
+    after skip=2mm, % <--- Salto pequeño para que la resolución se pegue
+    before skip=1cm, right skip=0cm, breakable, fonttitle=\bfseries, 
+    toprule=0pt, bottomrule=0pt, rightrule=0pt, leftrule=4pt, arc=0mm, skin=enhancedlast jigsaw, sharp corners, 
+    colframe=colorAsignatura!25!black, colbacktitle=colorAsignatura!25!black,
+    boxed title style={
+        frame code={ 
+            \fill[colorAsignatura!25!black]
+                (frame.south west)--(frame.north west)--(frame.north east)--
+                ([xshift=3mm]frame.east)--(frame.south east)--cycle;
+            \draw[line width=1mm, colorAsignatura!25!black]
+                ([xshift=2mm]frame.north east)--([xshift=5mm]frame.east)--([xshift=2mm]frame.south east);
+            % Pliegue inferior izquierdo (sombra un poco más oscura)
+            \fill[colorAsignatura!15!black]
+                (frame.south west)--+(4mm,-2mm)--+(4mm,2mm)--cycle;
+        }
+    }
+}{ejer}
+
+% ==========================================
+% ENTORNO DE RESOLUCIÓN (Concatenado)
+% ==========================================
+\newtcolorbox{resol}[1][Resolución]{
+  enhanced,
+  breakable,
+  frame hidden, 
+  boxrule=0pt,
+  borderline west={4pt}{0pt}{colorAsignatura!25!black}, 
+  colback=colorAsignatura!3!white, 
+  coltitle=colorAsignatura!25!black, 
+  fonttitle=\rmfamily\bfseries\scshape\large, 
+  title={#1}, 
+  before skip=0mm, 
+  after skip=1cm,
+  sharp corners
+}
+\AtEndEnvironment{resol}{\null\hfill\textcolor{colorAsignatura!25!black}{$\blacktriangleleft$}}
+
+
+% ======================================================================= %
+%                      11. USO DE CITAS Y REFERENCIAS      
+% ======================================================================= %
+
+
+% A. Aplicación de Epígrafe (justo debajo del capítulo)
+% \epigraph{\textit{"El tiempo es la sustancia de la que estoy hecho."}}{--- Jorge Luis Borges}
+
+
+% B. Citación inteligente con cleveref (detecta automáticamente que es un Axioma)
+% \cref{ax:reflexividad} establece una restricción algebraica fundamental sobre el flujo temporal. A partir de este principio primitivo, evaluamos la verdad de las fórmulas mediante la relación de forzamiento o satisfactibilidad semántica, denotada por $\Vdash$.
+
+
+% C. Declaración en el Glosario de Símbolos
+%\nomenclature{$\Vdash$}{Relación de satisfactibilidad local o forzamiento en un modelo}
+
+% D. Lista compacta gracias a enumitem (márgenes estrechos y numeración romana en cursiva)
+
+
+% E. Añadido al Índice Alfabético Analítico
+% \index{Relación de accesibilidad} 
+
+% F. Cita Bibliográfica automatizada
+% \cite{goldblatt1992logics}. 
+
+
+% ==========================================
+% PLANTILLA: TABLA DE VERDAD GENERALIZADA
+% ==========================================
+%\rowcolors{2}{white}{colorAsignatura!5} 
+%\begin{table}[H]
+%    \centering
+%    \renewcommand{\arraystretch}{1.5} 
+%    \setlength{\tabcolsep}{14pt} 
+%    \begin{tabular}{ccc !{\color{colorAsignatura}\vrule width 1.5pt} ccc} 
+%        \toprule
+%        \rowcolor{colorAsignatura!15} 
+%        % 1. Cambia las variables libres y los pasos intermedios aquí:
+%        $p$ & $q$ & $r$ & \textit{Paso 1} & \textit{Paso 2} & \textbf{Fórmula Final} \\
+%        \midrule
+%        % 2. Rellena los valores a la derecha de la barra en cada fila:
+%        \verd & \verd & \verd &  &  &  \\
+%        \verd & \verd & \fals &  &  &  \\
+%        \verd & \fals & \verd &  &  &  \\
+%        \verd & \fals & \fals &  &  &  \\
+%        \fals & \verd & \verd &  &  &  \\
+%        \fals & \verd & \fals &  &  &  \\
+%        \fals & \fals & \verd &  &  &  \\
+%        \fals & \fals & \fals &  &  &  \\
+%        \bottomrule
+%    \end{tabular}
+%    \caption{Evaluación semántica de la fórmula...}
+%    \label{tab:verdad_generica}
+%\end{table}
+%\rowcolors{1}{}{} % Apaga el color alterno para el resto del texto
+
+% ==========================================
+% PLANTILLAS: REGLAS DE INFERENCIA
+% ==========================================
+
+%% Opción A: Inferencia con 1 premisa
+%\begin{prooftree}
+%    \AxiomC{$\alpha \land \beta$}
+%    \RightLabel{\footnotesize (Eliminación $\land$)}
+%    \UnaryInfC{$\alpha$}
+%\end{prooftree}
+%
+%% Opción B: Inferencia con 2 premisas
+%\begin{prooftree}
+%    \AxiomC{$\alpha \to \beta$}
+%    \AxiomC{$\alpha$}
+%    \RightLabel{\footnotesize (Modus Ponens)}
+%    \BinaryInfC{$\beta$}
+%\end{prooftree}
+%
+%% Opción C: Inferencia con 3 premisas
+%\begin{prooftree}
+%    \AxiomC{$\alpha \lor \beta$}
+%    \AxiomC{$\alpha \to \gamma$}
+%    \AxiomC{$\beta \to \gamma$}
+%    \RightLabel{\footnotesize (Eliminación $\lor$)}
+%    \TrinaryInfC{$\gamma$}
+%\end{prooftree}
+
+% ==========================================
+% PLANTILLA: DEDUCCIÓN SECUENCIAL FORMAL
+% ==========================================
+%\begin{dem}[Demostración de la Transitividad de la Implicación]
+%Para demostrar formalmente el teorema $\vdash (p \to q) \land (q \to r) \to (p \to r)$, procedemos mediante la siguiente deducción secuencial:
+%
+%\vspace{0.3cm}
+%\begin{center}
+%    \renewcommand{\arraystretch}{1.4}
+%    \begin{tabular}{rll}
+%        % Estructura: Número. & Fórmula & Justificación \\
+%        1. & $p \to q$ & (Premisa) \\
+%        2. & $q \to r$ & (Premisa) \\
+%        3. & $p$ & (Hipótesis auxiliar / Supuesto) \\
+%        4. & $q$ & (Modus Ponens en 1 y 3) \\
+%        5. & $r$ & (Modus Ponens en 2 y 4) \\
+%        6. & $p \to r$ & (Teorema de la Deducción en 3 y 5) \\
+%    \end{tabular}
+%\end{center}
+%\vspace{0.1cm}
+%Por lo tanto, la fórmula queda deducida en el sistema axiomático.
+%\end{dem}
+\begin{document}
+% ======================================================================= %
+%                                  PORTADA                                %
+% ======================================================================= %
+
+\includepdf[pages=1]{Portada/portada.pdf}
+
+% ======================================================================= %
+%                           PÁGINA DE CORTESÍA                            %
+% ======================================================================= %
+\cleardoublepage 
+\thispagestyle{empty} 
+\vspace*{5cm}
+\begin{center}
+    \itshape
+    "La lógica es la anatomía del pensamiento." \\
+    \vspace{0.3cm}
+    --- John Locke
+\end{center}
+
+
+% ======================================================================= %
+%                 ÍNDICE GENERAL Y GLOSARIO DE SÍMBOLOS                   %
+% ======================================================================= %
+\frontmatter % Activa numeración romana y desactiva numeración de capítulos
+
+\cleardoublepage 
+\assignpagestyle{chapter}{empty} 
+\pagestyle{empty} 
+
+\tableofcontents
+
+\cleardoublepage
+\assignpagestyle{chapter}{plain} % Restauramos el estilo del capítulo
+\pagestyle{fancy}
+
+% ======================================================================= %
+%                               PRELIMINARES                              %
+% ======================================================================= %
+
+\chapter{Conceptos Preliminares}
+
+En este capítulo se recogen las definiciones topológicas y algebraicas que, si bien no pertenecen estrictamente al temario de la asignatura, resultan fundamentales para el desarrollo de las demostraciones posteriores, espeicialmente, los conceptos de filtro y ultrafiltro.
+
+\section*{Preliminares axiomáticos}
+
+En primer lugar, debemos establecer que trabajaremos con la axiomática clásica de  $\text{(Zermelo-Fraenkel)}$, complementada con el axioma de elección $\text{(AC)}$ para la teoría de conjuntos.
+
+Por su reiterado uso a lo largo de la asignatura, vamos a exponer tres de las principales equivalencias del axioma de elección que usaremos:
+
+\begin{defn*}{Equivalencias del Axioma de Elección}
+El Axioma de Elección es equivalente a las siguientes afirmaciones:
+\begin{enumerate}
+    \item[(1)] Para cualquier conjunto $X$, existe una función de elección $\varphi: \mathcal{P}(X) \setminus \{\emptyset\} \to X$ tal que $\varphi(A) \in A$ para todo conjunto no vacío $A \subseteq X$.
+    \item[(1')] Para cualquier conjunto $X$, para todo subconjunto $B \in \mathcal{P}(X)$, existe un elemento $x_{B} \in B$ y se cumple que $\{x_{B} : B \in \mathcal{P}(X)\} \subseteqq \mathcal{P}(X)$.
+    \item[(2)] Todo conjunto no vacío admite un buen orden; esto es, que para cada conjunto $X$ existe una \textbf{\textit{relación de orden total}} $\prec$ sobre $X$ tal que todo subconjunto no vacío $N \subseteq X$ tiene un elemento mínimo respecto de $\prec$.
+    \item[(3)] \textit{(Lema de Zorn)} Todo conjunto parcialmente ordenado no vacío $X$ en el que toda cadena (subconjunto totalmente ordenado) tiene un elemento superior, posee al menos un elemento maximal.
+\end{enumerate}
+\end{defn*}
+
+
+
+
+\section*{Preliminares algebraicos}
+
+Para esta sección, recordaremos nociones elementales del álgebra lineal
+
+\begin{defn*}{Sistemas libres, generadores y bases de Hamel}
+Dado un \textit{\textbf{espacio vectorial}} $V$ sobre un cuerpo $\mathbb{K} \in \{\RR,\CC\}$, decimos que un conjunto de vectores $\{v_{\ii}\}_{\ii \in I} \subseteq V$ es:
+\begin{itemize}
+    \item \textbf{Sistema Libre} si para cada $v \in V$ existe un subconjunto finito $J \subseteq I$ y para toda colección de esscalares $\{\lamb_{\jj}\}_{\jj \in J} \subseteq \KK$ se cumple que
+    \[
+        \sum_{\jj \in J} \lamb_{\jj} v_{\jj} = 0 \implies \lamb_{\jj} = 0, \quad \forall \jj \in J.
+    \]
+    \item \textbf{Sistema Generador} si para cada $v \in V$ existe un subconjunto finito $J \subseteq I$ y escalares $\{\lamb_{\jj}\}_{\jj \in J} \subseteq \KK$ tales que
+    \[
+        v = \sum_{\jj \in J} \lamb_{\jj} v_{\jj}.
+    \]
+    \item \textbf{Base de Hamel} si es a la vez libre y generador.
+\end{itemize}
+
+\end{defn*}
+
+A partir de esto, probaremos un resultado clásico sobre la existencia de bases de Hamel para espacios vectoriales.
+
+\begin{prop*}{Existencia de bases de Hamel}
+Todo espacio vectorial sobre un cuerpo $\mathbb{K} $ admite una base de Hamel.
+\end{prop*}
+
+\begin{dem}
+La prueba se basará en aplicar el \textit{Lema de Zorn} sobre un conjunto parcialmente ordenado de sistemas libres de un espacio vectorial.
+\medskip
+Sea V un espacio vectorial sobre un cuerpo $\mathbb{K}$. Consideremos el conjunto $\mathcal{C}$ de todos los sistemas libres de $V$. 
+$$
+\mathcal{C} \coloneq \{(v_{\ii})_{\ii \in I} \subseteq V  : \text{el conjunto } (v_{\ii})_{\ii \in I} \text{ es libre}\}
+$$
+
+Seguidamente, dotaremos a $\mathcal{C}$ de un orden parcial mediante la inclusión de conjuntos, de modo que $(\mathcal{C}, \subseteq)$ sea un conjunto parcialmente ordenado.
+Consideamos una \textbf{cadena} $C \subseteq \mathcal{C}$ y veamos que admite una cota superior.
+\medskip
+Consideramos $\{v_{\ii}\}_{\ii \in I}$ el conjunto formado por la \textit{unión de todos los sitemas libres que forman parte de C}. Veamos que se trata de un sistema libre
+
+Sea $\{\ii_{1}, \cdots , \ii_{\nn}\} \subseteq I$ un subconjunto finito con $\nn \in \NN$ y una colección de escalares $(\lamb_{\kk})_{\kk = 1}^{\nn} \subseteq \KK$. Por la definición de $\{v_{\ii}\}_{\ii \in I}$, existen una serie de \textit{sistemas libres} $\{B_{1}, \cdots, B_{\nn}\} \subseteq C$ que verifican
+\[
+\forall \kk \in \{1, \cdots, \nn\} \hspace{5pt} v_{\ii_{\kk}} \in B_{\kk}
+\]
+
+
+Ahora bien, por ser C cadena, debe existir un sistema libre $B_{\lal} \in C \lal \in \{1, \cdots, \nn\}$ que contiene a todos los demás. De este modo, se verifica que 
+
+\[
+\{v_{\ii_{1}}, \cdots, v_{\ii_{\nn}}\} \subseteq B_{\lal}
+\]
+
+De esto se deduce que si $\sum_{\kk = 1}^{\nn} \lamb_{\kk} v_{\ii_{\kk}} = 0$, entonces $\lamb_{\kk} = 0$ para todo $\kk \in \{1, \cdots, \nn\}$, por ser $B_{\lal}$ un sistema libre. Por lo tanto, $\{v_{\ii}\}_{\ii \in I} \in \mathcal C$.
+Además, por construcción, $\{v_{\ii}\}_{\ii \in I}$ es una cota superior de C, ya que contine a todos sus elementos. Por el \textit{Lema de Zorn}, $\mathcal{C}$ posee un elemento maximal $\{w_{\jj}\}_{\jj \in J}$. Veamos que $\{w_{\jj}\}_{\jj \in J}$ es una base de Hamel de $V$. Por lo previamente demostrado, basta comprobar que se trata de un sistema generador.
+
+\medskip
+Supongamos por reducción al absurdo que no lo es, entonces existe un elemento $v \in V$ que no puede expresarse como combinación lineal finita de los elementos de $\{w_{\jj}\}_{\jj \in J}$, es decir, $v \in V \setminus span(\{w_{\jj}\}_{\jj \in J})$. Sin embargo, tenemos que $\{v\} \cup \{w_{\jj}\}_{\jj \in J}$ es un sistema libre.
+\smallskip
+En efecto, si tomamos una combinación lineal finita de los elementos;
+\[
+\lamb v + \sum_{\ii = 1}^{\nn} \lamb_{\jj} w_{\jj_{\ii}} = 0 \colon \{\jj_{\ii}\}_{\ii = 1}^{\nn} \subseteq J
+\]
+
+debemos distinguir dos casos:
+\begin{itemize}
+    \item Caso 1: $\lamb \neq 0$. En este caso, podemos despejar $v$ en términos de los $w_{\jj}$, es decir $v \in span(\{w_{\jj}\}_{\jj \in J})$, \textcolor{red}{\# lo que contradice la suposición de que $v$ no está en el span de $\{w_{j}\}_{j \in J}$.} 
+    \item Caso 2: $\lamb = 0$. Entonces la combinación lineal se reduce a una combinación lineal de los elementos $\{w_{\jj}\}_{\jj \in J}$, y por ser este un sistema libre, todos los coeficientes deben ser cero, incluyendo los $\lamb_{\jj}$.
+\end{itemize}
+
+\smallskip
+En cualquier caso, colcuímos que $\{v\} \cup \{w_{\jj}\}_{\jj \in J}$ es un sistema libre,  \textcolor{red}{\# lo que contradice la maximalidad de $\{w_{j}\}_{j \in J}$ en $\mathcal{C}$.} Por lo tanto, conlcuímos que $\{w_{\jj}\}_{\jj \in J}$ es una base de Hamel de $V$.
+\end{dem}
+
+
+De hecho, podemos afirmar un resultado algo más fuerte.
+
+\begin{cor*}{Extensión de sistemas libres a bases de Hamel}
+Dado un espacio vectorial $V$ sobre un cuerpo $\KK$ y un sistema libre suyo $(z_{\ii})_{\ii \in I}$, se puede conseguir una base de Hamel de  $V$ que contiene a todos los elementos de $(z_{\ii})_{\ii \in I}$.
+\end{cor*}
+\begin{dem}
+Basta tomar $\mathcal C$ como el conjunto de todos los sistemas libres de $V$ que contienen a $(z_{\ii})_{\ii \in I}$ y aplicar el mismo razonamiento que en la demostración anterior.  
+\end{dem}   
+
+
+\section*{Preliminares de Topología}
+Como matiz inicial, debemos aclarar que todos los espacios topológicos descritos, salvo que se especifique lo contrario, se considerarán \textit{Hausdorff} ($T_{2}$).
+
+\medskip
+En esta sección, abordaremos cuestiones fundamentales de compacidad en términos de \textit{conjuntos cerrados}
+
+\begin{defn*}{Propiedad de Intesección Finita (PIF)}
+    Una colección de subconjuntos $\{K_{\ii} : \ii \in I\}$ de un espacio topológico $(X, \taut)$ se dice que tiene la \textbf{Propiedad de Intersección Finita (PIF)} si para todo subconjunto finito $J \subseteq I$ se cumple que
+    \[
+    \bigcap_{\jj \in J} K_{\jj} \neq \emptyset
+    \]
+\end{defn*}
+
+Esta propiedad es fundamental para caracterizar la compacidad en términos de conjuntos cerrados, como veremos a continuación.
+
+\begin{prop*}{Caracterización de la compacidad mediante la PIF}
+   Dado un espacio topológico $(X, \taut)$, los siguientes enunciados son equivalentes:
+    \begin{enumerate}
+          \item[(1)] $(X, \taut)$ es compacto.
+          \item[(2)] Para toda colección de conjuntos cerrados $\{K_{\ii} : \ii \in I\}$ que posee la PIF, se cumple que
+          \[
+          \bigcap_{\ii \in I} K_{\ii} \neq \emptyset
+          \]
+     \end{enumerate}
+\end{prop*}
+
+\begin{dem}
+    Realizaremos la demostración de cada una de las direcciones
+
+    \medskip
+    $\borde{(1) \implies (2)}$ Supongamos que $(X, \taut)$ es compacto y consideremos una colección de conjuntos cerrados $\{K_{\ii} : \ii \in I\}$ cumpliendo que $\bigcap_{\ii \in I} K_{\ii} = \emptyset$. Entonces , por las propiedades de la complementación se tiene que
+    \[
+    \begin{aligned}
+        X = X \setminus \emptyset &= X \setminus \bigcap_{\ii \in I} K_{\ii} = \bigcup_{\ii \in I} (X \setminus K_{\ii})
+    \end{aligned}
+    \]
+    donde $\{X \setminus K_{\ii} : \ii \in I\}$ es una colección de conjuntos abiertos que cubre $X$. Por haber supuesto que $(X, \taut)$ es compacto, existe un subconjunto finito $J \subseteq I$ tal que $\{X \setminus K_{\jj} : \jj \in J\}$ cubre $X$.
+    Entonces, nuevamente por las propiedades de la complementación, se tiene que:
+
+    \[
+    \begin{aligned}
+        X &= \bigcup_{\jj \in J} (X \setminus K_{\jj}) = X \setminus \bigcap_{\jj \in J} K_{\jj}\\
+         &\implies \emptyset= \bigcap_{\jj \in J} K_{\jj}
+    \end{aligned}
+    \]
+
+    Luego, se concluye que $\{K_{\ii} : \ii \in I\}$ no posee la PIF.
+
+    \medskip
+    $\borde{(2) \implies (1)}$ Supongamos que toda colección de conjuntos cerrados $\{K_{\ii} : \ii \in I\}$ que posee la PIF cumple que $\bigcap_{\ii \in I} K_{\ii} \neq \emptyset$. Consideremos un recubrimiento abierto arbitrario de $X$,  $\{V_{\ii} : \ii \in I\}$. Entonces, se tiene que:
+
+    \[
+    \begin{aligned}
+        X &= \bigcup_{\ii \in I} V_{\ii} \\
+        &\implies \emptyset = X \setminus \bigcup_{\ii \in I} V_{\ii} = \bigcap_{\ii \in I} (X \setminus V_{\ii}) 
+    \end{aligned}
+    \]
+    \medskip
+
+    Como $\{X \setminus V_{\ii} : \ii \in I\}$ es una colección de conjuntos cerrados cumpliendo que $\bigcap_{\ii \in I} (X \setminus V_{\ii}) = \emptyset$, se concluye por hipótesis  que $\{X \setminus V_{\ii} : \ii \in I\}$ no posee la PIF. Por lo tanto, existe un subconjunto finito $J \subseteq I$ tal que
+    \[
+    \begin{aligned}
+     \emptyset &= \bigcap_{\jj \in J} (X \setminus V_{\jj}) = X \setminus \bigcup_{\jj \in J} V_{\jj}\\
+     & \implies X = \bigcup_{\jj \in J} V_{\jj}
+    \end{aligned}
+    \]
+
+    Luego, por definición, $(X, \taut)$ es compacto.
+
+\end{dem}
+
+
+
+\section*{Filtros y Ultrafiltros}
+
+\subsection*{Filtros y ultrafiltros sobre conjuntos}
+
+\begin{defn*}{Filtros sobre conjuntos}
+Dado un conjunto infinito $I$ (evidentemente no vacío), a cuyos elementos denominaremos \textit{índices} y una colección de subconjuntos $\filt$ de $I$, decimos que $\filt$ es un \textbf{filtro} sobre $I$ si cumple las siguientes propiedades:
+\begin{enumerate}
+    \item[(i)] $\emptyset \notin \filt$ y $I \in \filt$.
+    \item[(ii)] Si $A, B \in \filt$, entonces $A \cap B \in \filt$.
+    \item[(iii)] Si $A \in \filt$ y $A \subseteq B \subseteq I$, entonces $B \in \filt$.
+\end{enumerate}
+\end{defn*}
+
+Consideramos ahora algunos ejemplos fundamentales de filtros sobre conjuntos.
+
+\begin{ejemplo*}{Filtro trivial}
+El conjunto $\filt = \{I\}$ es un filtro sobre $I$, denominado \textit{filtro trivial}.
+
+\medskip
+En efecto, se verifica que $\emptyset \notin \filt$ y $I \in \filt$. Además, si $A, B \in \filt$, entonces $A = B = I$, por lo que $A \cap B = I \in \filt$. Finalmente, si $A \in \filt$ y $A \subseteq B \subseteq I$, entonces $B = I$, por lo que $B \in \filt$.
+
+Este ejemplo, permite asegurar la existencia de filtros sobre cualquier conjunto infinito.
+\end{ejemplo*}
+
+\begin{ejemplo*}{Filtros asociados a un elemento}
+Sea $i_{0} \in I$ un elemento fijo. Consideremos el conjunto $\filt_{i_{0}} = \{A \subseteq I : i_{0} \in A\}$. Entonces, $\filt_{i_{0}}$ es un filtro sobre $I$, denominado \textit{filtro principal asociado al elemento $i_{0}$}.
+    
+\medskip
+En efecto, dado un índice $i_{0} \in I$, como estamos tomando subconjuntos de $I$ que lo contienen, se cumple por las propiedades de conjuntos que $\emptyset \notin \filt_{i_{0}}$ y $I \in \filt_{i_{0}}$. Además, si $A, B \in \filt_{i_{0}}$, entonces $i_{0} \in A$ y $i_{0} \in B$, por lo que $i_{0} \in A \cap B$, es decir, $A \cap B \in \filt_{i_{0}}$. Finalmente, si $A \in \filt_{i_{0}}$ y $A \subseteq B \subseteq I$, entonces $i_{0} \in A$ y por lo tanto $i_{0} \in B$, es decir, $B \in \filt_{i_{0}}$.
+
+\end{ejemplo*}
+
+
+
+\begin{ejemplo*}{Filtro de Fréchet}
+    Sea $I$ un conjunto infinito. Consideremos el conjunto $\filt = \{A \subseteq I : I \setminus A \text{ es finito}\}$. Entonces, $\filt$ es un filtro sobre $I$, denominado \textit{filtro de Fréchet}.
+
+    \medskip
+    En efecto, vamos a verificar las propiedades de un filtro:
+    \begin{enumerate}
+        \item[(i)] Como $I$ es infinito y $\emptyset = I \setminus I$, se sigue que $\emptyset \not \in \filt$. Por otro lado, como $\emptyset$ es finito y $I = I \setminus \emptyset$, se sique que $I \in \filt$.
+        \item[(ii)] Sean $A, B \in \filt$. Entonces, $I \setminus A$ y $I \setminus B$ son conjuntos finitos. Por lo tanto, su unión $(I \setminus A) \cup (I \setminus B)$ también es finita. Además, por las propiedades de De Morgan, se tiene que
+        \[
+        I \setminus (A \cap B) = (I \setminus A) \cup (I \setminus B)
+        \]
+        lo que implica que $A \cap B \in \filt$.
+        \item[(iii)] Sea $A \in \filt$ y $A \subseteq B \subseteq I$. Entonces, $I \setminus A$ es finito. Además, por las propiedades de conjuntos, se tiene que
+        \[
+        (I \setminus B) \subseteq (I \setminus A)
+        \]
+        lo que implica que $I \setminus B$ es finito, y por tanto $B \in \filt$.
+    \end{enumerate}
+\end{ejemplo*}
+
+\begin{prop*}{Bases y subbases de ultrafiltros}
+Sea $I$ un conjunto infinito y sea $\mathcal S \subset \mathcal P(I)$ una colección de subconjuntos con la PIF. Entonces, la familia de sunconjuntos:
+$$
+\filt_{\mathcal{S}} \coloneq \left\{ A \subseteq I \colon A \supseteq \bigcap_{F \in \mathcal{S}'} F \quad\text{con}\quad \mathcal{S}' \subseteq \mathcal{S} \text{ finito} \right\}
+$$
+
+es un filtro sobre $I$ y además, es el filtro sobre $I$ más pequeño que continene a $\mathcal S$. Es decir, si \textcolor{magenta}{$\mathcal G$} es un filtro sobre $I$ que contiene a $\mathcal S$, entonces $\filt_{\mathcal{S}} \subseteq \textcolor{magenta}{\mathcal G}$.
+
+\end{prop*}
+
+
+\begin{dem}
+
+    Vamos a verificar que $\filt_{\mathcal{S}}$ cumple las propiedades de un filtro:
+    \begin{enumerate}
+        \item[(i)] Notemos que si $\emptyset \in \filt$, entonces existe una subcolección finita $\mathcal{S}' \subseteq \mathcal{S}$ tal que $\emptyset \supseteq \bigcap_{F \in \mathcal S'} F$ \textcolor{red}{\# esto contradice el hecho de que $\mathcal S$ tiene la PIF}. Por lo tanto, $\emptyset \notin \filt_{\mathcal{S}}$.Deduciremos que $I \in \filt_{\mathcal{S}}$ a partir de \emph{(iii)}
+        \item[(ii)] Sean $A, B \in \filt_{\mathcal S}$. Entonces, existen subcolecciones finitas $\mathcal{S}_{A}, \mathcal{S}_{B} \in \mathcal S$tal que:
+    \[
+     \left.
+     \begin{aligned}
+            A &\supseteq \bigcap_{F \in \ \mathcal{S}_{A}} F \\
+            B &\supseteq \bigcap_{F \in \ \mathcal{S}_{B}} F
+        \end{aligned}
+        \right\} \implies A \cap B \supseteq \bigcap_{F \in \mathcal{S}_{A} \cup \mathcal{S}_{B}} F \colon \mathcal{S}_{A} \cup \mathcal{S}_{B} \subseteq \mathcal S' \text{ es finita}
+       \]
+       De esto se deduce que $A \cap B \in \filt_{\mathcal S}$.
+        \item[(iii)] Sea $A \in \filt_{\mathcal S}$ y $A \subseteq B \subseteq I$. Entonces, existe una subcolección finita $\mathcal{S}_{A} \subseteq \mathcal S$ tal que $A \supseteq \bigcap_{F \in \mathcal{S}'} F$. Por lo tanto, se tiene que:
+        \[
+        B \supseteq A \supseteq \bigcap_{F \in \mathcal{S}'} F \implies B \in \filt_{\mathcal S}
+        \]
+    \end{enumerate}
+
+    \medskip
+    Sea \textcolor{magenta}{$\mathcal G$} un filtro sobre $I$ que contiene a $\mathcal S$. Entonces, por la propiedad (ii) de filtro, para cada subfamilia finita $\mathcal S' \subseteq \mathcal S$ se cumple que
+    \(\bigcap_{F \in \mathcal S'} F \in \textcolor{magenta}{\mathcal G}\) y por la propiedad (iii) de filtro, para cada $A \supset \bigcap_{F \in \mathcal S'} F$ se cumple que $A \in \textcolor{magenta}{\mathcal G}$. Por lo tanto, para cada $A \in \filt_{\mathcal S}$ se tiene que $A \in \textcolor{magenta}{\mathcal G}$. Es decir, $\filt_{\mathcal S} \subseteq \textcolor{magenta}{\mathcal G}$.
+    
+\end{dem}
+
+Este resultado nos lleva a definir algunas nociones que resultan particularmente intuitivas al tratar con estructuras de esta naturaleza:
+
+\begin{defn*}{Filtros generados, bases y subbases de filtros}
+    Bajo las condiciones del resultado anterior, definimos:
+    \begin{itemize}
+        \item \textbf{Filtro generado por una familia de conjuntos:} Sea $\mathcal S$ una familia de conjuntos no vacíos. El filtro generado por $\mathcal S$, denotado por $\filt_{\mathcal S}$, es el menor filtro que contiene a $\mathcal S$.
+        \item \textbf{Subbase de un filtro:} Una subbase de un filtro $\mathcal F_{\mathcal S}$ es una familia no vacía de subconjuntos que cumple la PIF y lo genera.
+        \item \textbf{Base de un filtro:} Una base de un filtro $\mathcal F_{\mathcal S}$  es una familia no vacía de subconjuntos que verifica que toda intersección finita de sus elementos pertenece a sí misma y lo genera. Es decir, si para cada subfamilia finita 
+        $\mathcal S' \subseteq \mathcal S$ entonces $\bigcap_{F \in \mathcal S'} F \in \mathcal S$.
+    \end{itemize}
+\end{defn*}
+
+Ilustremos estas definiciones con un ejemplo sencillo sobre los números naturales.
+
+\begin{ejemplo*}{El filtro de Fréchet sobre \NN}
+    Denotemos por $\filt$ al filtro de Fréchet sobre $\NN$, es decir:
+    \[
+    \filt = \{A \subseteq \NN : \NN \setminus A \text{ es finito}\}
+    \]
+
+    Veamos un ejemplo de subbase y base para este filtro:
+    \begin{itemize}
+        \item \textbf{Subbase:} Consideremos la familia de conjuntos $\mathcal S = \{\NN \setminus \{\nn\} : \nn \in \NN\}$. Esta familia cumple la PIF.
+
+        \medskip
+        En efecto, para cualquier subconjunto finito $J \subseteq \NN$, la intersección de los conjuntos $\NN \setminus \{\nn\}$ para $\nn \in J$ es:
+        \[
+        \bigcap_{n \in J} \  (\NN \setminus \{\nn\}) = \NN \setminus J \neq \emptyset
+        \]
+        que es un conjunto cofinito.
+        
+        \medskip
+        Veamos que en efecto, $\mathcal S$ genera el filtro de Fréchet, es decir, $\filt_{\mathcal S} = \filt$.
+
+        \medskip
+        \borde{\subseteq} Tomamos un elemento del filtro generado por $\mathcal S$, es decir, un conjunto $A \in \filt_{\mathcal S}$. Por definición, existe una subfamilia finita $\mathcal S' \subseteq \mathcal S$ tal que:
+        \[
+        A \supseteq \bigcap_{F \in \mathcal S'} F
+        \]
+        Como cada $F \in \mathcal S'$ es un conjunto cofinito, la intersección finita de estos conjuntos también es un conjunto cofinito. Por lo tanto, $A$ es un conjunto cofinito, lo que implica que $A \in \filt$. Así, $\filt_{\mathcal S} \subseteq \filt$.
+
+        \smallskip
+        \borde{\supseteq} Ahora, tomamos un elemento del filtro de Fréchet, es decir, un conjunto $A \in \filt$. Por definición, $\NN \setminus A$ es finito. Consideremos la familia $\mathcal S' = \{\NN \setminus \{\nn\} : \nn \in \NN \setminus A\}$. Esta familia está contenida en $\mathcal S$ y su intersección es:
+        \[
+        \bigcap_{\nn \in \NN \setminus A} (\NN \setminus \{\nn\}) = A
+        \]
+        Por lo tanto, $A$ pertenece al filtro generado por $\mathcal S$, es decir, $A \in \filt_{\mathcal S}$. Así, $\filt \subseteq \filt_{\mathcal S}$.
+
+        En resumen, $\filt_{\mathcal S} = \filt$.
+
+        \medskip
+        \item \textbf{Base:} Consideremos la familia de conjuntos $\mathcal B = \{\NN \setminus \{1, 2, \ldots, \nn\} : \nn \in \NN\}$. Veamos en primer lugar, que el conjunto cumple la PIF.
+        
+        \medskip
+        Si tomamos una colección finita de subconjuntos $\{\NN \setminus \{1, \cdots, \ii_{\kk}\}\}_{\kk=1}^{\nn}$, \ por ser $(\NN,\leq)$ un \textbf{orden total}
+        , podemos asumir sin perdida de generalidad que los elementos satisfacen $\forall \kk \in \{1, \cdots, \nn -1 \} \ \ii_{\kk} < \ii_{\kk+1}$. De este modo, se tiene que:
+        \[
+        \bigcap_{\kk = 1}^{\nn} \ (\NN \setminus \{1, \cdots \ii_{\kk}\}) = \NN \setminus \{1, \cdots, \ii_{\nn}\} \in \mathcal B
+        \]
+
+        Por lo tanto, como cumple la condición adicional de base, basta ver que genera el filtro de Fréchet, nuevamente, que $\filt_{\mathcal B} = \filt$.
+
+        \medskip
+        \borde{\subseteq} Tomamos un elemento $A \in \filt_{\mathcal B}$. Por definición, existe una subfamilia finita $\mathcal B' \subseteq \mathcal B$ tal que:
+        \[
+            A \supseteq \bigcap_{F \in \mathcal B'} F
+        \]
+        Como cada $F \in \mathcal B'$ es un conjunto cofinito, la intersección finita de estos conjuntos también es un conjunto cofinito (por lo visto anteriormente). Por lo tanto, $A$ es un conjunto cofinito, lo que implica que $A \in \filt$. Así, $\filt_{\mathcal B} \subseteq \filt$.
+
+        \smallskip
+        \borde{\supseteq} Ahora, tomamos un elemento $A \in \filt$. Por definición, $\NN \setminus A$ es finito. Sea $\nn = \max(\NN \setminus A)$. Entonces, si consideramos el conjunto $\NN \setminus \{1, 2, \ldots, \nn\} \in \mathcal B$, se tiene que:
+        \[
+            A \supseteq \NN \setminus \{1, 2, \ldots, \nn\} = \bigcap_{\ii = 1}^{\nn} \ (\NN \setminus \{1, 2, \ldots, \ii\}) 
+        \]
+        Por lo tanto, $A \in \filt_{\mathcal B}$. Así, $\filt \subseteq \filt_{\mathcal B}$.
+        
+
+        En resumen, $\filt_{\mathcal B} = \filt$.
+
+        \medskip
+    \end{itemize}
+\end{ejemplo*}
+    
+\medskip
+Veamos ahora un resultado estándar para este tipo de estrcutras:la existencia de elementos maximales.
+
+\begin{prop*}{Exstencia de ultrafiltros}
+    Sean $I$ un conjunto infinito y $\filt$ un filtro sobre $I$. Entonces, existe un \textit{filtro maximal sobre $I$}, $\ultf$, que contiene a $\filt$.
+\end{prop*}
+
+\medskip
+\begin{dem}
+    La demostración se basa en la aplicación del \textit{Lema de Zorn} sobre un conjunto parcialmente ordenado de filtros sobre $I$.
+
+    \medskip
+    Consideramos el conjunto de filtros que contienen a $\filt$ como:
+    \[
+        \mathbb A = \{\gilt \subseteq \mathcal P(I) \mid \gilt \text{ es un filtro y } \filt \subseteq \gilt\}   
+    \]
+    al que dotamos además de una estrcutra de orden parcial a través de la relación de inclusión de conjuntos, $(\mathbb A, \subseteq)$.
+
+    \smallskip
+    Dada una cadena $C \subseteq \mathbb A$, consideremos el conjunto $\mathcal D = \bigcup_{\gilt \in C} \gilt$, que verifica lo siguiente:
+
+    \begin{itemize}
+        \item[$\bullet$]$\mathcal D$ es un filtro.
+        \begin{enumerate}
+            \item[(i)] Si suponemos por reducción al absurdo que $\emptyset \in \mathcal D$, entonces debe existir un filtro $\gilt \in C$ tal que $\emptyset \in \gilt$ \textcolor{red}{\# lo que contradice la definición de filtro}. Por otro lado, como $\forall \gilt \in C, I \in \gilt$, se sigue que $I \in \mathcal D$
+            \item[(ii)] Sean $A, B \in \mathcal D$. Entonces, existen filtros $\gilt_{A}, \gilt_{B} \in C$ tales que $A \in \gilt_{A}$ y $B \in \gilt_{B}$. Como $C$ es una cadena, o bien $\gilt_{A} \subseteq \gilt_{B}$ o $\gilt_{B} \subseteq \gilt_{A}$. Supongamos que $\gilt_{A} \subseteq \gilt_{B}$. Entonces, $A \in \gilt_{B}$ y $B \in \gilt_{B}$, por lo que $A \cap B \in \gilt_{B}$. Por lo tanto, $A \cap B \in \mathcal D$. El otro caso es completamente análogo.
+            \item[(iii)] Sea $A \in \mathcal D$ y $A \subseteq B \subseteq I$. Entonces, existe un filtro $\gilt_{A} \in C$ tal que $A \in \gilt_{A}$. Como $\gilt_{A}$ es un filtro y $A \subseteq B$, se tiene que $B \in \gilt_{A}$. Por lo tanto, $B \in \mathcal D$.
+        \end{enumerate}
+
+        \smallskip
+        \item[$\bullet$] Por construcción, es claro que $\filt \subseteq \mathcal D$, por lo que $\mathcal D \in \mathbb A$. Además, $\mathcal D$ es cota superior de $C$, ya que para cada $\gilt \in C$, $\gilt \in \mathcal D$ 
+    \end{itemize}
+
+    \medskip
+    Por el \textit{Lema de Zorn}, $\mathbb A$ posee un elemento maximal $\ultf$, que por construcción contiene a $\filt$.
+\end{dem}
+
+\medskip
+Este resultado justifica la siguiente definición:
+
+\begin{defn*}{Ultrafiltros}
+    Un \textbf{ultrafiltro} sobre un conjunto infinito $I$ es un filtro maximal sobre $I$.
+\end{defn*}
+
+\smallskip
+A pesar de tener garantizada la existencia de ultrafiltros, su definición es algo confusa en la práctica. Por ello, introduciremos una caracterización que nos permitirá abordar el concepto con mayor facilidad.
+
+\begin{prop*}{Caracterización de ultrafiltros}
+    Sea $I$ un conjunto infinito y $\filt$ un filtro sobre $I$. Entonces, los siguientes enunciados son equivalentes
+     \begin{enumerate}
+        \item[(1)] $\filt$ es un \textit{ultrafiltro}
+        \item[(2)] Para cada sunconjunto $A \subseteq I$, o bien $A \in \filt$ o bien $I \setminus A \in \filt$
+     \end{enumerate}
+\end{prop*}
+
+     \begin{dem}
+     Veamos cada una de las implicaciones por separado
+
+    \medskip
+    \borde{(1) \implies (2)} \medskip Sea $A \subseteq I$ cualquiera. Supongamos por reducción al absurdo que $A \notin \filt$ y $I \setminus A \notin \filt$.
+    
+    \smallskip
+    Entonces, como $A \notin \filt$, debe existir un subconjunto $F_{A} \in \filt$ tal que $A \cap F_{A} = \emptyset$. En efecto, si para cada $F \in \filt$ $A \cap F \neq \emptyset$, entonces $\filt \cup \{A\}$ tiene la PIF. De esta forma, por la definición de filtro generado, podemos considerar el filtro generado por $\filt \cup \{A\}$, $\gilt_{\filt \cup \{A\}}$, que por definición, cumple que
+    \[
+    \filt \subseteq \filt \cup \{A\} \subseteq \gilt_{\filt \cup \{A\}}. \textcolor{red}{\#}
+    \]
+
+    \smallskip
+    Razonando de forma análoga para $B \coloneq I \setminus A$, deducirmos que existe cierto subconjunto $F_{B} \in \filt$, verificando que $B \cap F_{B} = \emptyset$. De ambas deducciones, se tiene que
+
+    \[
+    \left.
+    \begin{aligned}
+        F_{A} \cap A = \emptyset& \implies F_{A} \subset I \setminus A = B\\
+        F_{B} \cap B  = \emptyset& \implies F_{B} \subset I \setminus B = A
+    \end{aligned}
+    \right\} \emptyset = F_{A} \cap F_{B} \in \filt \textcolor{red}{\#}
+    \]
+
+    \medskip
+
+    \borde{(2) \implies (1)} Supongamos que $\filt$ es un filtro no maximal; ergo, por el resultado previo, existe un ultrafiltro $\ultf$ tal que $\filt \in \ultf$.
+
+    \smallskip
+    De esta forma, debe de existir un sunconjunto $A \subseteq I$ tal que $A \in \ultf \setminus \filt$. Por ser $\ultf$ filtro $I \setminus A \not \in \ultf$ (ya que de lo contrario $\emptyset \in \ultf$). Por lo tanto, $I \setminus A \not \in \filt$ y $A \not \in \filt$, lo que niega $(2)$.
+     \end{dem}
+
+     \subsection*{Filtros, ultrafiltros y topología}
+
+     Esta sección pretende introducir una generalización del concepto de sucesiones y convergencia en espacios méttricos para cualquier espacio topológico.
+
+     \begin{defn*}{Convergencia de filtros}
+     Sea $(X, \taut)$ un espacio topológico y $\filt$ un filtro o ultrafiltro sobre un conjunto de índice $I$. Decimos que una familia de elementos $(x_{\ii})_{\ii \in I} \subseteq X$ \textbf{converge} a un elemento $x_{0} \in X$ según el filtro $\filt$ si:
+    \begin{center}
+        \borde{\forall V \in \mathcal{N}_{x_{0}}  \ \{\ii \in I \colon x_{\ii} \in V\} \in \filt}
+    \end{center}
+     
+     \end{defn*}
+
+     \medskip
+     Ilustremos esta definición via un ejemplo sencillo en un espacio métrico.
+
+     \begin{ejemplo*}{Convergencia de sucesiones según el filtro de Fréchet}
+        Si consideramos el espacio topológico $(\RR, \taut_{d})$ de la recta real con su topología usual y el filtro de Fréchet sobre $\NN$, entonces la noción tradicional de convergencia coincide con la convergencia según el filrtro de Fréchet.
+
+        \smallskip
+        Veamos ambas direcciones de la equivalencia  para cerciorarnos de la equivalencia.
+        \begin{itemize}
+            \item[$\bullet$] Tomemos una sucesión $(x_{\nn})_{\nn \in \NN} \subseteq \RR$ y un elemento $x_{0} \in \RR$ tal que $x_{\nn} \underset{\nn}{x_{0}}$. Por definición, tenemos que:
+             $$\forall \eps > 0 \ \exists \nn_{0} \in \NN \colon \forall \nn \geq \nn_{0} \implies |x_{\nn} - x_{0}| < \eps$$
+
+             Sin embargo, basta notar que esto puede reformularse como sigue:
+             $$
+             \{\nn \in \NN \colon x_{\nn} \in (x_{0} - \eps, x_{0} + \eps)\} \supset \{\nn \in \NN \colon \nn \geq \nn_{0}\} \in \filt
+             $$
+             Donde la última inclusión es clara por ser el conjunto cofinito. Por las propiedades de filtro, se sigue que $\{\nn \in \NN \colon x_{\nn} \in (x_{0} - \eps, x_{0} + \eps)\} \in \filt$. Por lo tanto, $(x_{\nn})_{\nn \in \NN}$ converge a $x_{0}$ según el filtro de Fréchet.
+
+             \item[$\bullet$] Tomemos ahora una sucesión $(x_{\nn})_{\nn \in \NN} \subseteq \RR$ y un elemento $x_{0} \in \RR$ tal que $(x_{\nn})_{\nn \in \NN}$ converge a $x_{0}$ según el filtro de Fréchet. Por definición, tenemos que:
+             $$
+             \forall \eps > 0 \ I_{\eps} \coloneq \{\nn \in \NN \colon x_{\nn} \in (x_{0} - \eps, x_{0} + \eps)\} \in \filt
+             $$
+             Luego, $I_{\eps}$ es cofinito; es decir, si tomamos la base del filtro de Fréchet, existe una colección de naturales $\{\kk_{1}, \cdots , \kk_{\mm}\} \colon \mm \in \NN$ verificando que:
+             $$
+                I_{\eps}  = \NN \setminus \{\kk_{1}, \cdots, \kk_{\mm}\}
+             $$
+             De esta forma, tomando $\kk = max\{\kk_{1}, \cdots, \kk_{\mm}\}$, tenemos que 
+             
+             $$
+             \NN \setminus \{\kk_{1}, \cdots, \kk_{\mm}\} \supseteq \NN \setminus \{1, \cdots, \kk\} 
+             $$.
+
+             O expresado de otro modo, para cualquier $\nn \geq \kk$ se cumple que $x_{\nn} \in I_{\eps}$. Por lo tanto, $(x_{\nn})_{\nn \in \NN}$ converge a $x_{0}$ en el sentido tradicional.
+        \end{itemize}
+     \end{ejemplo*}
+
+     \medskip
+
+     La notación para denotar la convergencia respecto a un filtro suele ser bastante variada, aunque preferiblemente emplearemos la siguiente notación:
+
+     \[
+     \begin{array}{llllc}
+        x_{\ii} \underset{\ii \to \filt}{\overset{\taut}{\to}} x_{0} & x_{\ii} \underset{\filt}{\overset{\taut}{\to}} x_{0} & \underset{\ii \to \filt}{Lim} x_{\ii} =  x_{0} 
+     \end{array}
+     \]
+
+     \medskip
+
+     Ahora que hemos establecido esta noción general de convergencia, vamos a introducir los elementos necesarios para abordar el principal caso que vamos a manejar.
+
+     \begin{defn*}{Conjunto dirigidos}
+        Decimos que una tuplam$(I, \preceq)$ es un \textbf{conjunto dirigido} si $I$ es un conjunto infinito y $\preceq$ es una relación de orden parcial sobre $I$ que verifica la siguiente condición:
+         
+        \begin{center}
+            $
+            \forall \ii, \jj \in I \ \exists \kk \in I : \ii \preceq \kk \text{ y } \jj \preceq \kk
+            $
+        \end{center}
+
+        A esta relación la denominamos \textbf{relación de "mejor que"}
+     \end{defn*}
+
+     \smallskip
+     A partir de un conjunto dirigido, $(I,\preceq)$, denotamos para cada índice $\ii \in I$
+        \[
+            I(\ii) \coloneq \{\jj \in I : \ii \preceq \jj\}    
+        \]
+
+    \smallskip
+    Así, la colección $\{I(\ii) \colon \ii \in I\}$ tiene la PIF.
+
+    \medskip
+    En efecto, si tomamos $\ii, \jj \in I$, por ser $(I,\preceq)$ un conjunto dirigido, existe $\kk \in I$ tal que $\ii \preceq \kk$ y $\jj \preceq \kk$. Por lo tanto, $\kk \in I(\ii) \cap I(\jj)$, y por lo tanto $I(\ii) \cap I(\jj) \neq \emptyset$.
+
+    \smallskip
+    De esta forma, podemos considerar el filtro generado por la colección $\{I(\ii) \colon \ii \in I\}$, al que llamaremos \textbf{filtro de orden sobre $I$}
+
+    \begin{rem*}{}
+    Notemos que para cada $\ii \in I$, si $\jj \in I(\ii)$, entonces $I(\jj) \subseteq I(\ii)$. Basta notar que, si $\kk \in I(\jj)$, entonces $\jj \preceq \kk$. Como $\ii \preceq \jj$, por la transitividad de la relación de orden, se tiene que $\ii \preceq \kk$, es decir, $\kk \in I(\ii)$.
+    \end{rem*}
+
+    \begin{ejemplo*}{Caso fundamental}
+        Sean $(X, \taut)$ un espacio topológico y $x_{0} \in X$. Denotando por $\mathcal{N}_{x_0}$ al conjunto de todos los entornos abiertos de $x_{0}$, si lo dotamos de la relación $A \preceq B \Leftrightarrow B \subseteq A$, entonces $(\mathcal{N}_{x_0}, \preceq)$ es un conjunto dirigido.
+        
+        \smallskip
+        En efecto, si tomamos $A, B \in \mathcal{N}_{x_0}$, por la definición de entorno abierto, existe un entorno abierto $C$ de $x_{0}$ tal que $C \subseteq A \cap B$. Por lo tanto, $C \preceq A$ y $C \preceq B$, y por lo tanto $(\mathcal{N}_{x_0}, \preceq)$ es un conjunto dirigido.
+
+        \smallskip
+        Además, como $\mathcal{N}_{x_0}$ cumple la PIF, podemos considerar el filtro de orden sobre $\mathcal{N}_{x_0}$ respecto de $\preceq$, que denotaremos $\filt$
+
+        \medskip
+        Tomemos ahora un filtro sobre $I$, $\gilt$ que contiene a $\filt$. Entonces, para cada $V \in \mathcal{N}_{x_0}$, se cumple que
+        \[
+        x_{V} \underset{V \to \gilt}{\overset{\taut}{\to}} x_{0}
+        \]
+
+        \medskip
+        Veamos que en efecto esto es cierto. Dado $W \in \mathcal{N}_{x_0}$, como si $V \preceq W$ entonces $x_{V} \in V \subseteq W$, deducimos que:
+        \[
+        \begin{aligned}
+            \{V \in \mathcal{N}_{x_0} : x_{V} \in W\} \supseteq \{W\} &\implies \{V \in \mathcal{N}_{x_0} : x_{V} \in W\} \supseteq I(W) \\
+            &\implies \{V \in \mathcal{N}_{x_0} : x_{V} \in W\} \in \gilt
+        \end{aligned}
+        \]
+    \end{ejemplo*}
+
+    Esto nos permite emular la caracterización sucesional de la clausura de un conjunto en términos de la convergencia respecto de un filtro.
+
+    \begin{prop*}{Caracterización de la clausura en términos de filtros}
+        Sea $(X, \taut)$ un espacio topológico y $A \subseteq X$. Entonces, los siguientes enunciados son equivalentes:
+
+        \begin{enumerate}
+            \item[(1)] $x_{0} \in \overline{A}$
+            \item[(2)] Existen un conjunto infinito $I$, un filtro sobre $I$, $\filt$ y una colección de elementos $(x_{\ii})_{\ii \in I} \subseteq A$ tal que $x_{\ii} \underset{\ii \to \filt}{\overset{\taut}{\to}} x_{0}$.
+            \item[(3)] Existen un conjunto infinito $I$, un ultrafiltro sobre $I$, $\ultf$ y una colección de elementos $(x_{\ii})_{\ii \in I} \subseteq A$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut}{\to}} x_{0}$.
+        \end{enumerate}
+    \end{prop*}
+
+    \begin{dem}
+        \borde{(1) \implies (2)} Sea $x_{0} \in \overline{A}$. Consideremos el conjunto dirigido $(\mathcal{N}_{x_0}, \preceq)$, el filtro de orden sobre $\mathcal{N}_{x_0}$, $\filt$ y para cada $\VV \in \mathcal{N}_{x_0}$, tomamos un elemento $x_{V} \in A \cap V$ (que existe por la hipótesis de que $x_{0} \in \overline{A}$). Entonces, por la observación del ejemplo previamente planteado:
+        \[
+        x_{V} \underset{V \to \filt}{\overset{\taut}{\to}} x_{0}
+        \]
+
+        \medskip
+        \borde{(2) \implies (3)} Bajo las consideraciones de la implicación previa, basta aplicar la misma observación sobre el ultrafiltro $\ultf$.
+
+
+        \medskip
+        \borde{(3) \implies (1)} Sean un conjunto de índices $I$, un ultrafiltro sobre $I$ $\ultf$ y una colección de elementos $(x_{\ii})_{\ii \in I} \subseteq A$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut}{\to}} x_{0}$. Sea $V \in \mathcal{N}_{x_0}$ y veamos que $V \cap A \neq \emptyset$. Para ello, basta recordar la definición de convergencia en filtro, que asegura que:
+        \[
+        I_{V} = \{\ii \in I : x_{\ii} \in V\} \in \ultf
+        \]
+        Por ser $\ultf$ un ultrafiltro, sabemos que $I_{V} \neq \emptyset$, luego existe un índice $\jj \in I_{V}$. De este modo, por construcción, $x_{\jj} \in V \cap A$.
+    \end{dem}
+
+
+    \begin{prop*}{Caracterización de la continuidad en términos de filtros}
+     Sean $(X,\taut_{X})$, $(Y,\taut_{Y})$ dos espacios topológicos, $f \colon (X, \taut_{X}) \to (Y, \taut_{Y})$ una aplicación y $x_0 \in X$. Entonces, los siguientes enunciados son equivalentes:
+     \begin{enumerate}
+        \item[(1)] $f$ es continua en $x_0$
+        \item[(2)] Para cada conjunto infinito $I$, cada filtro sobre $I$ $\filt$ y cada colección de elementos $(x_{\ii})_{\ii \in I} \subseteq X$ tal que $x_{\ii} \underset{\ii \to \filt}{\overset{\taut_{X}}{\to}} x_{0}$, se cumple que $f(x_{\ii}) \underset{\ii \to \filt}{\overset{\taut_{Y}}{\to}} f(x_{0})$.
+        \item[(3)] Para cada conjunto infinito $I$, cada ultrafiltro sobre $I$ $\ultf$ y cada colección de elementos $(x_{\ii})_{\ii \in I} \subseteq X$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut_{X}}{\to}} x_{0}$, se cumple que $f(x_{\ii}) \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} f(x_{0})$.   
+     \end{enumerate}
+    \end{prop*}
+
+    \begin{dem}
+    
+        \borde{(1) \implies (2)} Sea $f$ continua en $x_0$. Tomemos un conjunto infinito $I$, un filtro sobre $I$ $\filt$ y una colección de elementos $(x_{\ii})_{\ii \in I} \subseteq X$ tal que $x_{\ii} \underset{\ii \to \filt}{\overset{\taut_{X}}{\to}} x_{0}$. Como $f$ es continua en $x_{0}$, sabemos que se cumple que:
+        \[
+        \forall W \in \mathcal{N}_{f(x_0)} \ \exists V \in \mathcal{N}_{x_0} : f(V) \subseteq W
+        \]
+
+        \medskip
+        Por otro lado, como $x_{\ii} \underset{\ii \to \filt}{\overset{\taut_{X}}{\to}} x_{0}$, se cumple que:
+        \[
+        I_{V} = \{\ii \in I \colon x_{\ii} \in V\} \in \filt
+        \]
+        Entonces, juntando ambas deducciones, tenemos que:
+        \[
+        \forall \ii \in I_{V} \ f(x_{\ii}) \in W \implies \{\ii \in I_{V} : f(x_{\ii} \in W) \in W\} \supset I_{V} \in \filt
+        \]
+        y por las propiedades de filtro, se sigue que $\{\ii \in I \colon f(x_{\ii}) \in W\} \in \filt$. Es decir, que $f(x_{\ii}) \underset{\ii \to \filt}{\overset{\taut_{Y}}{\to}} f(x_{0})$.
+
+        \borde{(2) \implies (3)} Esta implicación es inmediata, ya que todo ultrafiltro es un filtro.
+
+        \borde{(3) \implies (1)} Supongamos que $f$ no es continua en $x_0$., es decir, que se verifica lo siguiente:
+        \[
+        \exists W \in \mathcal{N}_{f(x_0)} \ \forall V \in \mathcal{N}_{x_0} : f(V) \not \subseteq W
+        \]
+
+        Por lo tanto, para cada $V \in \mathcal{N}_{x_0}$ existe un elemento $x_{V} \in V$ tal que $f(x_{V}) \not \in W$, o expresado de otro modo:
+        \[
+        \{V \in \mathcal{N}_{x_0} :f(x_{V}) \in W\} = \emptyset
+        \]
+
+        \medskip
+        Consideramos el conjunto dirigido $(\mathcal{N}_{x_0}, \preceq)$ y el filtro de orden sobre $\mathcal{N}_{x_0}$, $\filt$, el cuál extendemos a un ultrafiltro $\ultf$ que contiene a $\filt$. Por las observaciones del ejemplo previo, se tiene que $x_{V} \underset{V \to \ultf}{\overset{\taut_{X}}{\to}} x_{0}$, pero por construcción, $f(x_{V}) \underset{V \to \ultf}{\overset{\taut_{Y}}{\to}} f(x_{0})$, ya que $\{V \in \mathcal{N}_{x_0} : f(x_{V}) \in W\} = \emptyset \not \in \ultf$
+    \end{dem}
+
+    \begin{lem*}{}
+    Sean $\ultf$ un ultrafiltro sobre un conjunto infinito $I$, $\{I_{\kk}\}_{\kk = 1}^{\nn}$ una colección finita de subconjuntos de $I$ tal que $\forall \kk \in \{1, \cdots, \nn\} \ I_{\kk} \not \in \ultf$. Entonces:
+    \[
+    \bigcup_{\kk=1}^{\nn} I_{\kk} \not \in \ultf
+    \]
+    \end{lem*}
+
+    \begin{dem}
+    Distinguiremos dos casos:
+    
+    \medskip
+
+     Suponemos por reducción al absurdo que $\bigcup_{\kk=1}^{\nn} I_{\kk} \in \ultf$. Por hipótsesis, se verifica lo siguiente:
+     \begin{itemize}
+        \item[(a)] Por ser $\ultf$ un ultrafiltro, aplicando la caracterización de ultrafiltros, se tiene que $\forall \kk \in \{1, \cdots, \nn\} : I \setminus I_{\kk} \in \ultf$.
+        \item[(b)] Por ser $\ultf$ un filtro, es cerrado bajo intersecciones finitas.
+     \end{itemize}
+
+     \smallskip
+     A partir de estas dos observaciones, tenemos que:
+     \[
+     \begin{aligned}
+        I \setminus \bigcup_{\kk=1}^{\nn} I_{\kk} = \bigcap_{\kk=1}^{\nn} \ (I \setminus I_{\kk})  \in \ultf \textcolor{red}{\#}
+     \end{aligned}
+     \]
+    \end{dem}
+
+    \begin{thm*}{Caracterización de la compacidad en términos de ultrafiltros}
+        Sea $(X, \taut)$ un espacio topológico. Entonces, los siguientes enunciados son equivalentes:
+        \begin{enumerate}
+            \item[(1)] $(X, \taut)$ es compacto
+            \item[(2)] Para cada conjunto infinito $I$, cada ultrafiltro sobre $I$ $\ultf$ y cada colección de elementos $(x_{\ii})_{\ii \in I} \subseteq X$, existe un elemento $x_{0} \in X$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut}{\to}} x_{0}$.
+        \end{enumerate}
+    \end{thm*}
+
+    \begin{dem}
+    \borde{(1) \implies (2)} Supongamos que $(X, \taut)$ es compacto y que por reducción al absurdo, existen un conjunto de índices $I$, un ultrafiltro sobre $I$, $\ultf$ y una colección de elementos $(x_{\ii})_{\ii \in I} \subseteq X$ tales que no existe ningún $x_0 \in X$ verificando $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut}{\not \to}} x_{0}$.
+
+    \smallskip
+    Entonces, para cada $x \in X$, existe un entorno abierto $V_{x} \in \mathcal{N}_{x}$ cumpliendo que:
+    \[
+    I_{x} \coloneq \{\ii \in I \colon x_{\ii} \in V_{x}\} \not \in \ultf
+    \]
+
+    \smallskip
+    Por ser $(X, \taut)$ compacto y darse que $X = \bigcup_{x \in X} V_x$, existe un subconjunto finito $\{z_1, z_2, \ldots, z_{\nn}\} \subseteq X$ tal que $X = \bigcup_{\ii=1}^{\nn} V_{z_{\ii}}$.
+    
+    \smallskip
+    De este modo, se tiene lo siguiente:
+    \begin{enumerate}
+        \item[(a)] Por construcción, $I = \bigcup_{\ii = 1}^{\nn} I_{z_{\ii}}$, ya que dado cualquier índice $\ii \in I$, por ser $\bigcup_{\jj =1}^{\nn} V_{z_{\jj}}$ recubrimiento de $X$, debe esxistir un $\kk \in \{1, \cdots, \nn\}$ tal que $x_{\ii} \in V_{z_{\kk}}$.
+        Por lo tanto, $\ii \in I_{z_{\kk}} \subseteq \bigcup_{\jj = 1}^{\nn} I_{z_{\jj}}$ .
+        \item[(b)] Por ser $\ultf$ un filtro, se tiene que $I \in \ultf$
+        \item[(c)] Por ser $\ultf$ un ultrafiltro y por la construcción de los conjuntos $I_{z_{\ii}}$, se tiene que $I_{z_{\ii}} \not \in \ultf$ para cada $\ii \in \{1, \cdots, \nn\}$. Por el lema previo, se sigue que $\bigcup_{\ii = 1}^{\nn} I_{z_{\ii}} \not \in \ultf$. 
+    \end{enumerate}
+    
+    \medskip
+    De los puntos (a), (b) y (c) se deduce una contradicción \textcolor{red}{\#}
+
+
+    \medskip
+    \borde{(2) \implies (1)} Asumiendo la existencia de un límite bajo el ultrafiltro $\ultf$, consideramos una familia de cerrados $\{K_{\ii} \colon \ii \in I\} \in \mathcal{P}(X)$ con la PIF. Por la caracterización de la compacidad en términos de cerrados, basta ver que se cumple:
+     \[
+     \bigcap_{\ii \in I} K_{\ii} \neq \emptyset
+     \]
+
+     \medskip
+     Sea $\mathcal{D} = \{D \subset I : D \ \text{es finito}\}$ dotado del orden inclusión de conjuntos $(\mathcal{D}, \subseteq)$. Evidentemente, este conjunto es dirigido, pues dados $D, J \in \mathcal{D}$, resulta claro que $D \cup J \in \mathcal D$ junto con $D \subseteq D \cup J$ y $J \subseteq D \cup J$. Por lo tanto, podemos considerar el filtro de orden sobre $\mathcal{D}$, $\filt$, y extenderlo a un ultrafiltro $\ultf$ que contenga a $\filt$.
+
+     \smallskip
+     Para cada $D \in \mathcal{D}$, por tener la PIF, se tiene que $\bigcap_{\ii \in D} K_{\ii} \neq \emptyset$, de modo que
+     \[
+    \exists \ x_{D} \in \bigcap_{\ii \in D} K_{\ii}
+     \]
+
+    \smallskip
+    Como asumimos que $\exists \underset{D \to \ultf}{\lim x_{D}} = x_{0} \in X$, trataremos de probar que $x_{0} \in \bigcap_{\ii \in I} K_{\ii}$.
+    
+    \smallskip
+    Fijamos un $\ii \in I$ cualquiera y tomamos un entorno $V \in \mathcal{N}_{x_0}$. Probemos que $V \cap K_{\ii} \neq \emptyset$.
+    \[
+    \left.
+    \begin{aligned}
+        x_{D} \underset{D \to \ultf}{\overset{\taut}{\to}} x_{0} &\implies \mathcal{A}_{V} \coloneq \{D \in \mathcal{D} : x_{D} \in V\} \in \ultf\\
+         \mathcal{D}(\{\ii\}) \in \ultf
+    \end{aligned}
+    \right\} \implies \mathcal{A}_{V} \cap \mathcal{D}(\{\ii\}) \underset{\ultf \text{filtro}}{\neq} \emptyset
+    \]
+
+    Por lo tanto, existe un conjunto finito $J \in \mathcal{A}_{V} \cap \mathcal{D}(\{\ii\})$, que verifica
+    \[
+    \left.
+    \begin{aligned}   
+    J \in \mathcal{A}_{V} & \implies x_{J} \in V\\
+    J \in \mathcal{D}(\{\ii\}) & \implies J \in \mathcal D \text{ y } \{\ii\} \subset J \implies \ii \in J \underset{x_J \in \cap_{\ii \in J} K_{\ii}}{\implies} x_J \in K_{\ii}
+    \end{aligned}
+    \right\} \implies x_J \in V \cap K_{\ii} \neq \emptyset
+    \]
+
+    \medskip
+    Por la definición de clausura, se sigue que $\forall \ii \in I \ : x_{0} \in \overline{K_{\ii}} \underset{K_{\ii} \ \text{cerrados}}{=} K_{\ii}$, es decir:
+    \[
+    x_{0} \in \bigcap_{\ii \in I} K_{\ii} \neq \emptyset
+    \]
+    \end{dem}
+
+
+    \begin{prop*}{}
+        Sean $\{(X_{\alpa}, \taut_{\alpa}) \ \colon \alpa \in \Delt\}$ una familia de espacios topológicos, $I$ un conjunto de índices, $\ultf$ un ultrafiltro sobre $I$,una familia $(\mathbb{X}_{\ii})_{\ii \in I} \subseteq \prod_{\alpa \in \Delt} X_{\alpa}$ y $\mathbb{X}_{0} \in \prod_{\alpa \in \Delt} X_{\alpa}$. Entonces, los siguientes resultados son equivalentes:
+        \begin{enumerate}
+            \item[(1)] $\mathbb{X}_{\ii} \underset{\ii \to \ultf}{\overset{\prod_{\alpa \in \Delt} \taut_{\alpa}}{\to}} \mathbb{X}_{0}$ 
+            \item[(2)] Para cada $\alpa \in \Delt$, se cumple que $x_{\ii}^{\alpa} \underset{\ii \to \ultf}{\overset{\taut_{\alpa}}{\to}} x_{0}^{\alpa}$, donde $x_{\ii}^{\alpa} = p_{\alpa}(\mathbb{X}_{\ii})$ y $x_{0}^{\alpa} = p_{\alpa}(\mathbb{X}_{0})$.
+        \end{enumerate}     
+    \end{prop*}
+
+    \begin{dem}
+        \borde{(1) \implies (2)} Consideremos un $\berta \in \Delt$ cualquiera pero fijo. Definimos la aplicación proyección canónica, trivialmente continua en $\prod_{\alpa \in \Delt} \taut_{\alpa}$:
+
+        \bigskip
+        \[
+        \begin{aligned}
+            p_{\berta} \colon  & \prod_{\alpa \in \Delt} X_{\alpa} \to X_{\berta}\\
+            & (x^{\alpa})_{\alpa \in \Delt} \mapsto x^{\berta}
+        \end{aligned}
+        \]
+        
+        \medskip
+        Por la caracterización de la continuidad en términos de filtros junto con la hipótesis $\mathbb{X}_{\ii} \underset{\ii \to \ultf}{\overset{\prod_{\alpa \in \Delt} \taut_{\alpa}}{\to}} \mathbb{X}_{0}$, se sigue que:
+
+        \[
+        p_{\berta}(\mathbb{X}_{\ii}) \underset{\ii \to \ultf}{\overset{\taut_{\berta}}{\to}} p_{\berta}(\mathbb{X}_{0}) \iff x_{\ii}^{\berta} \underset{\ii \to \ultf}{\overset{\taut_{\berta}}{\to}} x_{0}^{\berta}
+        \]
+    \end{dem}
+
+
+    \section{Ejercicios}
+     
+    \begin{ejer*}{1}
+        Sea $\filt$ el filtro de Fréchet sobre $\NN$ y sea $\filt_{\nn}$ el filtro principal sobre $\NN$ asociado al número natural $\nn$
+        \smallskip
+        \begin{enumerate}
+            \item[(a)] ¿Qué filtro es $\gilt = \bigcap_{n \in \NN} \filt_{n}$?
+            \item[(b)] ¿Es $\gilt \cap \filt $ un filtro sobre $\NN$?
+        \end{enumerate}
+    \end{ejer*}
+
+    \begin{resol}
+        Veamos cada uno de los apartados:
+
+        \medskip
+        \borde{(a)} Por definición, sabemos que el filtro principal para cada número natural viene dado pir $\filt_{\nn} = \{A \subseteq \NN \colon \nn \in \NN\}$. De esta forma. al considerar la intersección, se tiene que:
+        \[
+        \begin{aligned}
+            A \in \bigcap_{\nn \in \NN} \filt_{\nn} &\iff A \in \filt_{\nn} \ \forall \nn \in \NN\\
+            &\iff \forall \nn \in \NN \colon \nn \in A \iff A = \NN
+        \end{aligned}
+        \]
+
+        Luego, hemos deducido que $\gilt$ se trata del filtro trivial sobre $\NN$
+
+        \medskip
+        \borde{(b)} Por la deducción previa, tenemos que $\gilt = \{\NN\}$. Por lo tanto, $\gilt \cap \filt = \{\NN\} \cap \filt = \{\NN\}$, que sigue siendo un filtro sobre $\NN$.
+    \end{resol}
+
+    \begin{ejer*}{2}
+        Sea $(x_{\nn})_{\nn \in \NN}$ una sucesión convergente a $x_0$ en un espacio topológico.
+
+        \smallskip
+        Demuestra que toda reordenación suya $(x_{\nn})_{\nn \in \NN}$ converge a $x_0$. (Entenderemos por reordenación a una sucesión $(x_{\varphi(\nn)})_{\nn \in \NN}$ donde $\varphi : \NN \to \NN$ es una función biyectiva.)
+
+    \end{ejer*}
+
+     \begin{resol}
+    Consideramos un espacio topológico $(X, \taut)$ y una sucesión $(x_{\nn})_{\nn \in \NN} \subseteq X$ convergente a $x_0 \in X$. Por definición de convergencia, 
+     \end{resol}
+
+
+    \begin{ejer*}{6 - \ Teorema de Ramsey}
+        Dado un conjunto $J$, denotamos $\mathcal{P}(J)$ al conjunto de todos los subconjuntos de $J$ y $\mathcal{P}^{\kk}(J)$ al conjunto de todos los subconjuntos de cardinal $\kk$ de $J$.
+
+        \medskip
+        Sean $A$ y $B$ dos subconjuntos disjuntos de $\mathcal{P}^{2}(\NN)$ tales que $\mathcal{P}^{2}(\NN) = A \cup B$.
+        
+        \smallskip
+        Demuestra que existe un subconjunto infinito $I \subseteq \NN$ tal que o bien $\mathcal{P}^{2}(I) \subseteq A$ o bien $\mathcal{P}^{2}(I) \subseteq B$.
+    \end{ejer*}
+
+    \begin{resol}
+        \borde{Dem \ 1} Tomemos un número natural $\nn_{0} \in \NN$. Sabemos que existen infinitas posibles duplas a formar con $\nn_{0}$, es decir, existen infinitos elementos de la forma $\{\nn_{0}, \nn\}$ con $\nn \in \NN \setminus \{\nn_{0}\}$. Por lo tanto, como $\mathcal{P}^{2}(\NN) = A \cup B$, debe existir un subconjunto infinito $\mathcal{N}_{1} \subseteq\NN $ tal que o bien $\{\nn_{0}, \nn\} \in A$ para todo $\nn \in \mathcal{N}_{1}$ o bien $\{\nn_{0}, \nn\} \in B$ para todo $\nn \in \mathcal{N}_{1}$.
+
+        \medskip
+        Independientemente de cuál de los dos casos se cumpla, podemos tomar ahora un elemento $\nn_1 \in \mathcal{N}_{1}$. Por ser un conjunto infinito, existen infinitos elementos de la forma $\{\nn_{1}, \nn\}$ con $\nn \in \mathcal{N}_{1} \setminus \{\nn_{1}\}$. Por lo tanto, como $\mathcal{P}^{2}(\NN) = A \cup B$, debe existir un subconjunto infinito $\mathcal{N}_{2} \subseteq\mathcal{N}_{1} $ tal que o bien $\{\nn_{1}, \nn\} \in A$ para todo $\nn \in \mathcal{N}_{2}$ o bien $\{\nn_{1}, \nn\} \in B$ para todo $\nn \in \mathcal{N}_{2}$.
+
+        \medskip
+        Reiterando este proceso indefinidamente, obtenemos una colección de naturales $(\nn_{\kk})_{\kk \in \NN} \subseteq \NN$ y una colección de subconjuntos infinitos $(\mathcal{N}_{\kk})_{\kk \in \NN} \subseteq \mathcal{P}(\NN)$. 
+        Ahora bien, podemos considerar la subsucesión $(\nn_{\kk}^{A})_{\kk \in \NN}$ a partir de los conjuntos $(\mathcal{N}_{\kk}^{A})_{\kk \in \NN}$  cuyos elementos tienen infinitos pares en $A$. De esta forma, si tomamos el conjunto infinito $I =(\nn_{\kk}^{A})_{\kk \in \NN} $, es claro que $\mathcal{P}^{2}(I) \subseteq A$. De forma análoga, podemos replicar el argumento para los conjuntos $(\mathcal{N}_{\kk}^{B})_{\kk \in \NN}$.
+
+        \bigskip
+        \borde{Dem \ 2} Consideramos un ultrafiltro $\ultf$ sobre $\NN$ que contenga al filtro de Fréchet sobre $\NN$, $\filt$. Para cada $\nn \in \NN$, por hipótesis, podemos definir los conjuntos:
+        \[
+        \begin{aligned}
+            S_{A}(\nn) &= \{\mm \in \NN : \{\nn, \mm\} \in A\}\\
+            S_{B}(\nn) &= \{\mm \in \NN : \{\nn, \mm\} \in B\}
+        \end{aligned}
+        \]
+
+        \medskip
+        Por ser $\ultf$ un ultrafiltro que contiene al filtro de Fréchet, para cada $\nn \in \NN$ se tiene que $S_{A}(\nn) \cup S_{B}(\nn) = \NN \setminus \{\nn\} \in \filt \subseteq \ultf$.
+        
+        \smallskip
+        Por el recíproco de un lema sobre ultrafiltros, sabemos que al menos uno de los dos conjuntos $S_{A}(\nn)$ o $S_{B}(\nn)$ pertenece a $\ultf$. Esto nos permite definir los conjuntos:
+        \[
+        \begin{aligned}
+            \ultf_{A} &= \{\nn \in \NN : S_{A}(\nn) \in \ultf\}\\
+            \ultf_{B} &= \{\nn \in \NN : S_{B}(\nn) \in \ultf\}
+        \end{aligned}
+        \]
+
+        \medskip
+        Por un razonamiento análogo al anterior, como $\ultf_{A} \cup \ultf_{B} = \NN$, al menos uno de los conjuntos $\ultf_{A}$ o $\ultf_{B}$ pertenece a $\ultf$.
+        
+        \medskip
+        Supongamos sin perdida de generalidad que $\ultf_{A} \in \ultf$ (el caso de $\ultf_{B}$ es análogo). Entonces, si tomamos un elemento $\nn_{0} \in \ultf_{A}$, se tiene que $S_{A}(\nn_{0}) \in \ultf$.
+
+        \smallskip
+        Seguidamente, como $\ultf_{A} \in \ultf$ y $S_{A}(\nn_{0} \in \ultf)$, se tiene que $\ultf_{A} \cap S_{A}(\nn_0) \neq \emptyset$ y de hecho, podemos asegurar que se trata de un conjunto infinito, pues $\ultf$ extiende al filtro de Fréchet $\filt$ que solo contien sunconjuntos numerables.
+        De esta forma, podemos tomar un elemento $\nn_{1} \in \ultf_{A} \cap S_{A}(\nn_0)$ y repetir el proceso de forma iterativa, obteniendo una colección de elementos $(\nn_{\kk})_{\kk \in \NN} \subseteq \NN$ tal que $\mathcal{P}^{2}(I) \subseteq A$ para $I = (\nn_{\kk})_{\kk \in \NN}$.
+    \end{resol}
+
+
+    \begin{ejer*}{7}
+        Sean $(X, \taut_{X})$ e $(Y,\taut_{Y})$ dos espacios espacios topológicos con $(X, \taut_{X})$ compacto y $f : (X,\taut_{X}) \to (Y,\taut_{Y})$ una aplicación contínua entre ellos.
+
+        \smallskip
+        Demuestra, empleando filtros y ultrafiltros, que $f(X)$ es compacto en $(Y,\taut_{Y})$.
+
+    \end{ejer*}
+
+    \begin{resol}
+    Para realizar este ejercicio, emplearemos las caracterizaciones de la continuidad y compacidad via ultrafiltros. 
+    
+    \medskip
+    Así, tomamos un conjunto de índices $I$, un ultrafiltro sobre $I$ $\ultf$ y una colección de elementos $(y_{\ii})_{\ii \in I} \subseteq f(X)$. Queremos probar que existe un elemento $y_{0} \in f(X)$ verificando que:
+    \[
+    y_{\ii} \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} y_{0}
+    \]
+
+    \smallskip
+    Sin embargo, por construcción, para cada $\ii \in I$, existe un elemento $x_{\ii} \in X$ verficando que $y_{\ii} = f(x_{\ii})$. A tenor de esto, aplicamos sendas caracterizaciones:
+    \begin{enumerate}
+        \item[(1)] Por la caracterización de la compacidad en términos de ultrafiltros, como $(X,\taut_{X})$ es compacto, sabemos que para la familia $(x_{\ii})_{\ii \in I} \subseteq X$ existe un elemento $x_{0} \in X$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut_{X}}{\to}} x_{0}$
+        \item[(2)] Por la caracterización de la continuidad en términos de ultrafiltros, como $f$ es continua, sabemos que $f(x_{\ii}) \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} f(x_{0})$
+        \item[] 
+    \end{enumerate}
+
+    Es decir, si definimos $y_{0} = f(x_{0})$, entonces $y_{\ii} \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} y_{0}$. Aplicando nuevamente la caracterización de la compacidad en términos de ultrafiltros, tenemos que $f(X)$ es compacto en $(Y,\taut_{Y})$. 
+    \end{resol}
+
+    \begin{ejer*}{8}
+       Sean $(X, \taut_{X})$ e $(Y,\taut_{Y})$ dos espacios espacios topológicos con $(X, \taut_{X})$ compacto y $f : (X,\taut_{X}) \to (Y,\taut_{Y})$ una aplicación biyectiva y contínua entre ellos.
+
+        \smallskip
+        Demuestra, empleando filtros y ultrafiltros, que $f^{-1}$ es una aplicación contínua.
+        
+    \end{ejer*}
+
+    \begin{resol}
+        Para realizar este ejercicio, emplearemos las caracterizaciones de la continuidad y la compacidad en términos de ultrafiltros, además del ejercicio previo.
+
+        \medskip
+        Tomamos un conjunto de índices $I$, $\ultf$ un ultrafiltro sobre $I$ y una colección de elementos $(y_{\ii \in I})_{\ii \in I} \subseteq Y$ verificando que $y_{\ii \in I} \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} y_{0}$ para cierto $y_0 \in Y$. Queremos probar que:
+        \[
+        f^{-1}(y_{\ii}) \underset{\ii \to \ultf}{\overset{\taut_{X}}{\to}} f^{-1}(y_{0})
+        \]
+
+        \medskip
+        Por ser $f$ es biyectiva, sabemos que existe una colección de elementos  $(x_{\ii})_{\ii \in I} \subseteq X$ tal que $f(x_{\ii}) = y_{\ii}$. Por la caracterización de la compacidad en términos de ultrafiltros, debe existir un elemento $x_0 \in X$ tal que $x_{\ii} \underset{\ii \to \ultf}{\overset{\taut_{X}}{\to}} x_{0}$.
+
+        \smallskip
+        Por otro lado, como $f$ es continua, se tiene que por la caracterización de la continuidad en términos de ultrafiltros, $f(x_{\ii}) \underset{\ii \to \ultf}{\overset{\taut_{Y}}{\to}} f(x_{0})$.
+
+        \smallskip
+        Ahora bien, como estamos trabajando en espacios Hausdorff, por construcción de las sucesiones deben coincidir: $f(x_0) = y_0$. De esta forma, recordando la biyectividad, se tiene wue $f^{-1}(y_0) = x_0$ y $(x_{\ii})_{\ii \in I} = (f^{-1}(y_{\ii}))_{\ii \in I}$. Luego, hemos probado lo que buscábamos
+    \end{resol}
+
+    \begin{ejer*}{Unicidad de límites en espacios Hausdorff}
+        Sea $(X, \taut)$ un espacio Hausdorff y sea $\filt$ un filtro sobre un conjunto de índices $I$.
+        
+        \smallskip
+        Demuestra que si existe un elemento $x_0 \in X$ tal que $x_{\ii} \underset{\ii \to \filt}{\overset{\taut}{\to}} x_{0}$, entonces $x_0$ es único.
+    \end{ejer*}
+
+    \begin{resol}
+        Supongamos por reducción al absurdo que existen dos elementos distintos $x_0, x_1$ que son límite de la colección $(x_{\ii})_{\ii \in I}$ bajo el filtro $\filt$. Entonces, se cumple lo siguiente:
+        \begin{enumerate}
+            \item[(1)] Por hipótesis, sabemos que para cada entorno abierto $V_0 \in \mathcal{N}_{x_0}$, se tiene que $I_{V_0} \coloneq \{\ii \in I \colon x_{\ii} \in V_0\} \in \filt$.
+            \item[(2)] De forma análoga, para cada entorno abierto $V_1 \in \mathcal{N}_{x_1}$, se tiene que $I_{V_1} \coloneq \{\ii \in I \colon x_{\ii} \in V_1\} \in \filt$.
+            \item[(3)] Por hipótesis, como $(X, \taut)$  es Hausdorff, existen entornos abiertos $V_{0}^{*} \in \mathcal{N}_{x_0}$ y $V_{1}^{*} \in \mathcal{N}_{x_1}$ tales que $V_{0}^{*} \cap V_{1}^{*} = \emptyset$.
+        \end{enumerate}
+
+        A partir de estas observaciones, tenemos que:
+        \[
+        \left.
+        \begin{aligned}
+            I_{V_{0}^{*}} \in \filt \\
+            I_{V_{1}^{*}} \in \filt
+        \end{aligned}
+        \right\} \implies I_{V_{0}^{*}} \cap I_{V_{1}^{*}} \in \filt
+        \]
+
+        Sin embargo, por como se han tomado los entornos $V_{0}^{*}$ y $V_{1}^{*}$, se tiene que $I_{V_{0}^{*}} \cap I_{V_{1}^{*}} = \emptyset$, \textcolor{red}{\# lo cual contradice la definición de filtro}. 
+        
+        \medskip
+        Por lo tanto, hemos probado que el límite ha de ser único..
+    \end{resol}
+
+    \begin{ejer*}{Importancia }
+        Sea $(X, \tau)$ un espacio topológico \textbf{\textit{primero numerable}} y sea $\mathcal{F}$ un filtro sobre un conjunto de índices $I$. Entonces, los siguientes enunciados son equivalentes:
+        \begin{enumerate}
+    \end{ejer*}
+
+
+% ======================================================================= %
+%                              ZONA DE ANEXOS                             %
+% ======================================================================= %
+% ======================================================================= %
+%                              BIBLIOGRAFÍA                               %
+% ======================================================================= %
+\cleardoublepage
+\printbibliography[heading=bibintoc]
+
+\newpage
+\printindex
+\end{document}
